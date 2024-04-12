@@ -1,1 +1,1 @@
-# figure_understanding
+# Figure Integrity Verification
