@@ -16,7 +16,7 @@ The objective of this study is to address the issue of integrity verification of
 
 ## Dataset
 ### Figure-seg
-Dataset can be found in [Google Drive]([https://drive.google.com/file/d/16yYWa66RbFkqfFJpI9XdX4-UPs4J9_Qz/view?usp=sharing](https://drive.google.com/file/d/1966TIfBd5KFBG6pWIG7fWgCv3hLzmsQU/view?usp=sharing))
+Dataset can be found in [Google Drive]([https://drive.google.com/file/d/16yYWa66RbFkqfFJpI9XdX4-UPs4J9_Qz/view?usp=sharing](https://drive.google.com/file/d/1966TIfBd5KFBG6pWIG7fWgCv3hLzmsQU/view?usp=sharing).
 
 We save masks per image as a json file. It can be loaded as a dictionary in python in the below format.
 
