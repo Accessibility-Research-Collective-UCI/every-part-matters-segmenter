@@ -6,32 +6,59 @@ The objective of this study is to address the issue of integrity verification of
 
 - [Overview](#overview)
 - [Dataset](#dataset)
+- [Checkpoint](#model-checkpoints)
 - [System Requirements](#system-requirements)
 - [Installation Guide](#installation-guide)
 - [License](#license)
 
-# Overview
+## Overview
 ![Framework](https://github.com/shixiang1a/figure_understanding/blob/main/framework.png)
 
-# Dataset
+## Dataset
 ### Figure-seg
-Dataset can be found in [Google Drive](https://drive.google.com/file/d/16yYWa66RbFkqfFJpI9XdX4-UPs4J9_Qz/view?usp=sharing)
+Dataset can be found in [Google Drive]([https://drive.google.com/file/d/16yYWa66RbFkqfFJpI9XdX4-UPs4J9_Qz/view?usp=sharing](https://drive.google.com/file/d/1966TIfBd5KFBG6pWIG7fWgCv3hLzmsQU/view?usp=sharing))
 
-# System Requirements
-## Hardware requirements
+We save masks per image as a json file. It can be loaded as a dictionary in python in the below format.
+
+```python
+{
+     "name"                 : module_name,
+     "position"             : [absolute position, relative position],
+     "function"             : function_info,
+     "origin_image"         : image_path,
+     "shapes"               : [{
+                                "label"        : str,   # module cls
+                                "labels"       : list,  # all cls
+                                "shape_type"   : str,   # default: polygon
+                                "image_name"   : str,   # image_info
+                                "points"       : list   # segmentation mask
+                               }],
+    "neg_module"            : unrelated_module_name
+}
+```
+
+## Model Checkpoints
+
+- `Segmentation Model`: [Link]() 
+- `Attribute VQA Model`: [Link]()
+
+
+## System Requirements
+#### Hardware requirements
 A GPU capable of running 13B parameters is required to execute the training and inference processes of the 'EPM' framework. The framework has been tested on a single A100 80GB GPU.
 
-## Software requirements
-### OS Requirements
-This package is supported for *Linux*. The package has been tested on the following systems:
-+ Linux: Ubuntu 22.04.1
+#### Software requirements
+- OS Requirements
 
-### Python Dependencies
+This package is supported for *Linux*. The package has been tested on the following systems: Linux: Ubuntu 22.04.1
+
+- Python Dependencies
+
 Refer to the requirements.txt file for the software's Python dependencies.
 ```
 pip install -r requirements.txt
 ```
-# Installation Guide:
+## Installation Guide:
 
 ### Install from Github
 ```
@@ -48,5 +75,16 @@ python train.py --device <DEVICE_ID> --base_model <BASE_MODEL_PATH> --dataset fi
 python train.py --device <DEVICE_ID> --base_model <BASE_MODEL_PATH> --dataset atrr_vqa --figure_seg_data <FIGURE_SEG_DATASET> --pretrain_mm_mlp_adapter <PROJECTOR_PATH> --vision-tower <CLIP_PATH> --vision_pretrained <SAM_PATH>
 ```
 
-# License
+### Inference
+Module Segment
+```
+python evaluate.py
+```
+
+Integrity Verification
+```
+python iv_pipeline.py # the OCR/NER/Segmentation Module is optional
+```
+
+## License
 This project is covered under the **Apache 2.0 License**.
