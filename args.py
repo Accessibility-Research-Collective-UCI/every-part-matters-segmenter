@@ -34,11 +34,11 @@ def parse_args(args):
         "--dataset", default="figure_seg", type=str
     )
     # 8,2 
-    parser.add_argument("--sample_rates", default="8", type=str)
+    parser.add_argument("--sample_rates", default="8", tytrainpe=str)
     parser.add_argument("--vqa_data", default="scigraphqa_instruct_2k", type=str)
-    parser.add_argument("--val_dataset", default="figure_seg_val", type=str)
-    parser.add_argument("--figure_seg_data", default="figure_seg_train", type=str)
-    parser.add_argument("--test_dataset", default="figure_seg_test", type=str)
+    parser.add_argument("--val_dataset", default="val", type=str)
+    parser.add_argument("--figure_seg_data", default="train", type=str)
+    parser.add_argument("--test_dataset", default="test", type=str)
     
     # module_vocab.json
     parser.add_argument("--vocab_path", default="", type=str)
@@ -46,7 +46,7 @@ def parse_args(args):
     parser.add_argument("--neg_sample_method", default="random", type=str)
     parser.add_argument("--combine_sample_rate", default=1, type=int)
     # "figure_seg||atrr_vqa||everything_vqa||mask_vqa"
-    parser.add_argument("--val_data_type", default="atrr_vqa", type=str)
+    parser.add_argument("--val_data_type", default="", type=str)
 
     parser.add_argument("--dataset_dir", default="", type=str)
     parser.add_argument("--log_base_dir", default="", type=str)
@@ -84,6 +84,6 @@ def parse_args(args):
     parser.add_argument("--train_mask_decoder", action="store_true", default=True)
     parser.add_argument("--use_mm_start_end", action="store_true", default=True)
     parser.add_argument("--auto_resume", action="store_true", default=True)
-    parser.add_argument("--conv_type", default="llava_v1.5", type=str, choices=["llava_v1.5", "llava_llama2"])
+    parser.add_argument("--conv_type", default="llava_v1.5", type=str, choices=["llava_v1.5"])
     parser.add_argument("--local_rank", default=0, type=int)
     return parser.parse_args(args)
