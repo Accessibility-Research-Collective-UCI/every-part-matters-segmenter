@@ -7,6 +7,7 @@
 - [License](#license)
 
 # Overview
+![Framework](https://github.com/shixiang1a/figure_understanding/blob/main/framework.png)
 
 # Dataset
 ### Figure-seg
