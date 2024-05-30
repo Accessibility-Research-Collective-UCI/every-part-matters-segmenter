@@ -1,5 +1,9 @@
 # Figure Integrity Verification
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+The objective of this study is to address the issue of integrity verification of scientific papers through the comprehension of scientific figures. This issue is decomposed into two sub-problems: first, how to achieve fine-grained alignment between text and figure modules, and, second, how to identify content within figures that has not been adequately described. 
+
 - [Overview](#overview)
 - [Dataset](#dataset)
 - [System Requirements](#system-requirements)
@@ -34,9 +38,14 @@ pip install -r requirements.txt
 git clone git@github.com:shixiang1a/figure_understanding.git
 ```
 
-### Train segmentation model
+### Train Module Segmentation Model
 ```
-python train.py --device <DEVICE_ID> --base_model <BASE_MODEL_PATH> --dataset <DATASET_PATH> --figure_seg_data <FIGURE_SEG_DATASET> --neg_sample_rate <NEG_RATE> --combine_sample_rate <COM_RATE> --pretrain_mm_mlp_adapter <PROJECTOR_PATH> --vision-tower <CLIP_PATH> --vision_pretrained <SAM_PATH>
+python train.py --device <DEVICE_ID> --base_model <BASE_MODEL_PATH> --dataset figure_seg --figure_seg_data <FIGURE_SEG_DATASET> --neg_sample_rate <NEG_RATE> --combine_sample_rate <COM_RATE> --pretrain_mm_mlp_adapter <PROJECTOR_PATH> --vision-tower <CLIP_PATH> --vision_pretrained <SAM_PATH>
+```
+
+### Train Attribute VQA Model
+```
+python train.py --device <DEVICE_ID> --base_model <BASE_MODEL_PATH> --dataset atrr_vqa --figure_seg_data <FIGURE_SEG_DATASET> --pretrain_mm_mlp_adapter <PROJECTOR_PATH> --vision-tower <CLIP_PATH> --vision_pretrained <SAM_PATH>
 ```
 
 # License
