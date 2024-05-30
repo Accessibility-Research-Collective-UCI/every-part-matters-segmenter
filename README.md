@@ -88,3 +88,6 @@ python iv_pipeline.py # the OCR/NER/Segmentation Module is optional
 
 ## License
 This project is covered under the **Apache 2.0 License**.
+
+## Acknowledgement
+-  This work is built upon the [LLaVA](https://github.com/haotian-liu/LLaVA), [SAM](https://github.com/facebookresearch/segment-anything) and [LISA](https://github.com/dvlab-research/LISA).
