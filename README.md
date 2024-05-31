@@ -39,8 +39,8 @@ We save masks per image as a json file. It can be loaded as a dictionary in pyth
 
 ## Model Checkpoints
 
-- `Segmentation Model`: [Link]() 
-- `Attribute VQA Model`: [Link]()
+- `Segmentation Model`: [Link](https://pan.baidu.com/s/1c5DvLLqCYVs4PPTVpJnR9g?pwd=ft2m) 
+- `Attribute VQA Model`: [Link](https://pan.baidu.com/s/1zbH-8mo2YCvV_xB5Vo3u8A?pwd=j5sg)
 
 
 ## System Requirements
