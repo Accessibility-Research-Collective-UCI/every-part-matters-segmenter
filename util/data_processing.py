@@ -8,6 +8,7 @@ import Levenshtein
 
 random.seed(42)
 
+
 def get_mask_from_json(json_path, img, data_type="figure_seg"):
     try:
         with open(json_path, "r") as r:
@@ -17,9 +18,8 @@ def get_mask_from_json(json_path, img, data_type="figure_seg"):
             anno = json.loads(r.read())
 
     inform = anno["shapes"]
-    
-    height, width = img.shape[:2]
 
+    height, width = img.shape[:2]
 
     if data_type == "figure_seg" or data_type == "atrr_vqa":
         comments = {
@@ -41,8 +41,6 @@ def get_mask_from_json(json_path, img, data_type="figure_seg"):
         mask = np.empty(shape=(0, height, width), dtype=np.uint8)
         return mask, comments
 
-    
-
     ### sort polies by area
     area_list = []
     valid_poly_list = []
@@ -63,10 +61,10 @@ def get_mask_from_json(json_path, img, data_type="figure_seg"):
                 print("error in: ", json_path)
                 continue
             tmp_mask = tmp_mask + sep_mask
-        
+
         # tmp_mask中>=1的值设为1
         tmp_mask = (tmp_mask >= 1).astype(np.uint8)
-        
+
         tmp_area = tmp_mask.sum()
         area_list.append(tmp_area)
         valid_poly_list.append(i)
@@ -89,15 +87,16 @@ def get_mask_from_json(json_path, img, data_type="figure_seg"):
 
         for point in points:
             sep_mask = np.zeros((height, width), dtype=np.uint8)
-            cv2.polylines(sep_mask, np.array([point], dtype=np.int32), True, label_value, 1)
+            cv2.polylines(
+                sep_mask, np.array([point], dtype=np.int32), True, label_value, 1
+            )
             cv2.fillPoly(sep_mask, np.array([point], dtype=np.int32), label_value)
             mask = mask + sep_mask
-    
+
     if label_value == 1:
         mask = (mask >= 1).astype(np.uint8)
     else:
         mask = (mask >= 255).astype(np.uint8)
-
 
     return mask, comments
 
@@ -114,7 +113,7 @@ def get_nagative_mask(json_path, vocab_path, img, rate, method):
     name = anno["name"]
     image = json_path.split("/")[-1].replace(".json", ".png")
     height, width = img.shape[:2]
-    vocab_dict = {line['image']: line['module'] for line in vocab}
+    vocab_dict = {line["image"]: line["module"] for line in vocab}
     vocab_list = []
     for line in vocab:
         if line["module"]:
@@ -124,10 +123,11 @@ def get_nagative_mask(json_path, vocab_path, img, rate, method):
         module_vocab = vocab_dict[image]
     else:
         module_vocab = []
-    neg_modules = sample_negative_module(name, [w for w in vocab_list if w not in module_vocab and w!= ""], rate, method)
+    neg_modules = sample_negative_module(
+        name, [w for w in vocab_list if w not in module_vocab and w != ""], rate, method
+    )
     mask = np.zeros((height, width), dtype=np.uint8)
     return mask, neg_modules
-
 
 
 def sample_negative_module(name, vocab_pool, rate, method):
@@ -138,16 +138,18 @@ def sample_negative_module(name, vocab_pool, rate, method):
         for word in vocab_pool:
             similarity_list.append((word, calculate_similarity(name, word, method)))
         sample_modules = sorted(similarity_list, key=lambda x: x[-1])[-rate:]
-    sample_modules = [{"name": m, "function":"", "relative position": "", "absolute position": ""} for m in sample_modules]
+    sample_modules = [
+        {"name": m, "function": "", "relative position": "", "absolute position": ""}
+        for m in sample_modules
+    ]
     return sample_modules
-        
-        
+
+
 def calculate_similarity(word1, word2, method="Levenshtein"):
     if method == "Levenshtein":
         distance = Levenshtein.distance(word1, word2)
         similarity = 1 - (distance / max(len(word1), len(word2)))
     return similarity
-
 
 
 if __name__ == "__main__":

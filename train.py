@@ -1,5 +1,6 @@
 import sys
 import os
+
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 import deepspeed
 import numpy as np
@@ -11,15 +12,23 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 from torch.utils.tensorboard import SummaryWriter
 from model.LISA import LISAForCausalLM
 from model.llava import conversation as conversation_lib
-from util.utils import (DEFAULT_IM_END_TOKEN, DEFAULT_IM_START_TOKEN,
-                         AverageMeter, ProgressMeter, Summary, dict_to_cuda,
-                         intersectionAndUnionGPU)
+from util.utils import (
+    DEFAULT_IM_END_TOKEN,
+    DEFAULT_IM_START_TOKEN,
+    AverageMeter,
+    ProgressMeter,
+    Summary,
+    dict_to_cuda,
+    intersectionAndUnionGPU,
+)
 from util.dataset import Dataset, ValDataset, collate_fn
 import shutil
 import time
-from ds_config import init_ds  
+from ds_config import init_ds
 from args import parse_args
-from model.llava.train.llama_flash_attn_monkey_patch import replace_llama_attn_with_flash_attn
+from model.llava.train.llama_flash_attn_monkey_patch import (
+    replace_llama_attn_with_flash_attn,
+)
 
 
 def main(args):
@@ -36,12 +45,14 @@ def main(args):
         args.base_model,
         cache_dir=None,
         model_max_length=args.model_max_length,
-        padding_side='right',
+        padding_side="right",
         use_fast=False,
-        )
+    )
     tokenizer.pad_token = tokenizer.unk_token
     tokenizer.add_tokens("[MODULE]")
-    args.module_token_idx = tokenizer("[MODULE]", add_special_tokens=False)['input_ids'][0]
+    args.module_token_idx = tokenizer("[MODULE]", add_special_tokens=False)[
+        "input_ids"
+    ][0]
 
     if args.conv_type == "llava_v1.5":
         replace_llama_attn_with_flash_attn()
@@ -51,7 +62,7 @@ def main(args):
         tokenizer.add_tokens(
             [DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN], special_tokens=True
         )
-    
+
     model_args = {
         "train_mask_decoder": args.train_mask_decoder,
         "out_dim": args.out_dim,
@@ -63,14 +74,13 @@ def main(args):
         "vision_tower": args.vision_tower,
         "use_mm_start_end": args.use_mm_start_end,
     }
-    
+
     torch_dtype = torch.float32
     if args.precision == "bf16":
         torch_dtype = torch.bfloat16
     elif args.precision == "fp16":
         torch_dtype = torch.half
-    
-    
+
     model = LISAForCausalLM.from_pretrained(
         args.base_model, torch_dtype=torch_dtype, low_cpu_mem_usage=True, **model_args
     )
@@ -91,7 +101,7 @@ def main(args):
         p.requires_grad = False
     for p in model.get_model().mm_projector.parameters():
         p.requires_grad = False
-    
+
     conversation_lib.default_conversation = conversation_lib.conv_templates[
         args.conv_type
     ]
@@ -135,7 +145,7 @@ def main(args):
             task_type="CAUSAL_LM",
         )
         model = get_peft_model(model, lora_config)
-    
+
     model.resize_token_embeddings(len(tokenizer))
 
     # make text_hidden_fcs, mask_decoder, lm_head, embed_tokens trainable
@@ -148,7 +158,7 @@ def main(args):
         ):
             print("n: ", n, "p.shape: ", p.shape)
             p.requires_grad = True
-    
+
     world_size = torch.cuda.device_count()
     args.distributed = world_size > 1
 
@@ -169,7 +179,9 @@ def main(args):
         figure_seg_data=args.figure_seg_data,
     )
 
-    args.steps_per_epoch = len(train_dataset) // (args.batch_size* args.grad_accumulation_steps* world_size)
+    args.steps_per_epoch = len(train_dataset) // (
+        args.batch_size * args.grad_accumulation_steps * world_size
+    )
 
     if args.no_eval == False:
         val_dataset = ValDataset(
@@ -178,7 +190,7 @@ def main(args):
             args.vision_tower,
             args.val_dataset,
             args.image_size,
-            args.val_data_type
+            args.val_data_type,
         )
         print(
             f"Training with {len(train_dataset)} examples and validating with {len(val_dataset)} examples."
@@ -189,12 +201,12 @@ def main(args):
             args.vision_tower,
             args.test_dataset,
             args.image_size,
-            args.val_data_type
+            args.val_data_type,
         )
     else:
         val_dataset = None
         print(f"Training with {len(train_dataset)} examples.")
-    
+
     ds_config = init_ds(args)
     model_engine, optimizer, train_loader, scheduler = deepspeed.initialize(
         model=model,
@@ -276,7 +288,11 @@ def main(args):
     if args.eval_only:
         if args.val_data_type == "figure_seg":
             giou, ciou = validate(val_loader, model_engine, 0, logger, args)
-        elif args.val_data_type == "atrr_vqa" or args.val_data_type == "everything_vqa" or args.val_data_type == "mask_vqa":
+        elif (
+            args.val_data_type == "atrr_vqa"
+            or args.val_data_type == "everything_vqa"
+            or args.val_data_type == "mask_vqa"
+        ):
             eval_loss = vqa_validate(val_loader, model_engine, args)
             print(eval_loss)
         exit()
@@ -291,7 +307,7 @@ def main(args):
             logger,
             train_iter,
             args,
-            tokenizer
+            tokenizer,
         )
 
         if args.no_eval == False:
@@ -301,7 +317,11 @@ def main(args):
                 is_best = giou > best_score
                 best_score = max(giou, best_score)
                 cur_ciou = ciou if is_best else cur_ciou
-            elif args.val_data_type == "atrr_vqa" or args.val_data_type == "everything_vqa" or args.val_data_type == "mask_vqa":
+            elif (
+                args.val_data_type == "atrr_vqa"
+                or args.val_data_type == "everything_vqa"
+                or args.val_data_type == "mask_vqa"
+            ):
                 eval_loss = vqa_validate(val_loader, model_engine, args)
                 is_best = eval_loss < best_loss
                 best_loss = min(eval_loss, best_loss)
@@ -325,16 +345,7 @@ def main(args):
             model_engine.save_checkpoint(save_dir)
 
 
-def train(
-    train_loader,
-    model,
-    epoch,
-    scheduler,
-    logger,
-    train_iter,
-    args,
-    tokenizer
-):
+def train(train_loader, model, epoch, scheduler, logger, train_iter, args, tokenizer):
     """Main training loop."""
     batch_time = AverageMeter("Time", ":6.3f")
     data_time = AverageMeter("Data", ":6.3f")
@@ -532,4 +543,3 @@ def validate(val_loader, model_engine, epoch, logger, args):
 
 if __name__ == "__main__":
     main(sys.argv[1:])
-

@@ -7,12 +7,18 @@ import torch.nn.functional as F
 from transformers import BitsAndBytesConfig, CLIPVisionModel
 
 import sys
-sys.path.append("/home/llmtrainer/Multimodal/EPM/")
-from util.utils import (DEFAULT_IM_END_TOKEN, DEFAULT_IM_START_TOKEN,
-                         DEFAULT_IMAGE_PATCH_TOKEN)
 
-from .llava.model.language_model.llava_llama import (LlavaLlamaForCausalLM,
-                                                     LlavaLlamaModel)
+sys.path.append("/home/llmtrainer/Multimodal/EPM/")
+from util.utils import (
+    DEFAULT_IM_END_TOKEN,
+    DEFAULT_IM_START_TOKEN,
+    DEFAULT_IMAGE_PATCH_TOKEN,
+)
+
+from .llava.model.language_model.llava_llama import (
+    LlavaLlamaForCausalLM,
+    LlavaLlamaModel,
+)
 from .segment_anything import build_sam_vit_h
 
 
@@ -137,7 +143,7 @@ class LISAForCausalLM(LlavaLlamaForCausalLM):
             self.bce_loss_weight = kwargs.pop("bce_loss_weight", None)
         else:
             config.mm_vision_tower = config.vision_tower
-            
+
         self.seg_token_idx = kwargs.pop("module_token_idx")
 
         super().__init__(config)
@@ -184,7 +190,7 @@ class LISAForCausalLM(LlavaLlamaForCausalLM):
         image_embeddings = self.get_visual_embs(images)
         batch_size = image_embeddings.shape[0]
         assert batch_size == len(offset) - 1
-        
+
         # find the seg token [MODULE] index
         seg_token_mask = input_ids[:, 1:] == self.seg_token_idx
         seg_token_mask = torch.cat(
@@ -252,7 +258,10 @@ class LISAForCausalLM(LlavaLlamaForCausalLM):
         hidden_states.append(self.model.text_hidden_fcs[0](output_hidden_states[-1]))
 
         last_hidden_state = torch.stack(hidden_states, dim=-1).sum(dim=-1)
-        if last_hidden_state.shape[0] != seg_token_mask.shape[0] and seg_token_mask.shape[0] == 1:
+        if (
+            last_hidden_state.shape[0] != seg_token_mask.shape[0]
+            and seg_token_mask.shape[0] == 1
+        ):
             last_hidden_state = last_hidden_state.unsqueeze(0)
         pred_embeddings = last_hidden_state[seg_token_mask]
         seg_token_counts = seg_token_mask.int().sum(-1)  # [bs, ]

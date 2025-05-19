@@ -1,5 +1,6 @@
 import argparse
 import os
+
 os.environ["CUDA_VISIBLE_DEVICES"] = "3"
 import sys
 import random
@@ -13,11 +14,17 @@ from model.LISA import LISAForCausalLM
 from model.llava import conversation as conversation_lib
 from model.llava.mm_utils import tokenizer_image_token
 from model.segment_anything.utils.transforms import ResizeLongestSide
-from util.utils import (DEFAULT_IM_END_TOKEN, DEFAULT_IM_START_TOKEN,
-                         DEFAULT_IMAGE_TOKEN, IMAGE_TOKEN_INDEX, question_templates)
-from model.llava.train.llama_flash_attn_monkey_patch import replace_llama_attn_with_flash_attn
-from concurrent.futures import ThreadPoolExecutor,as_completed,wait,ALL_COMPLETED
-
+from util.utils import (
+    DEFAULT_IM_END_TOKEN,
+    DEFAULT_IM_START_TOKEN,
+    DEFAULT_IMAGE_TOKEN,
+    IMAGE_TOKEN_INDEX,
+    question_templates,
+)
+from model.llava.train.llama_flash_attn_monkey_patch import (
+    replace_llama_attn_with_flash_attn,
+)
+from concurrent.futures import ThreadPoolExecutor, as_completed, wait, ALL_COMPLETED
 
 
 def parse_args(args):
@@ -25,8 +32,14 @@ def parse_args(args):
     # /data_share/model_hub/llava/llava-v1.5-13b
     # /data_share/model_hub/llava/llava-v1.6-vicuna-13b
     # /data_share/model_hub/llava/llava-v1.5-7b
-    parser.add_argument("--version", default="/data_share/model_hub/llava/llava-v1.5-13b")
-    parser.add_argument("--vis_save_path", default="/home/llmtrainer/Multimodal/EPM/vis_output", type=str)
+    parser.add_argument(
+        "--version", default="/data_share/model_hub/llava/llava-v1.5-13b"
+    )
+    parser.add_argument(
+        "--vis_save_path",
+        default="/home/llmtrainer/Multimodal/EPM/vis_output",
+        type=str,
+    )
     parser.add_argument(
         "--precision",
         default="bf16",
@@ -40,9 +53,15 @@ def parse_args(args):
     parser.add_argument("--lora_alpha", default=16, type=int)
     parser.add_argument("--lora_dropout", default=0.05, type=float)
     parser.add_argument("--lora_target_modules", default="q_proj,v_proj", type=str)
-    parser.add_argument("--vision_pretrained", default="/home/llmtrainer/Multimodal/LISA-main/sam_model/sam_vit_h_4b8939.pth", type=str)
     parser.add_argument(
-        "--vision-tower", default="/home/llmtrainer/LLM/irlab-llm/LISA/LISA/clip-vit-large-patch14", type=str
+        "--vision_pretrained",
+        default="/home/llmtrainer/Multimodal/LISA-main/sam_model/sam_vit_h_4b8939.pth",
+        type=str,
+    )
+    parser.add_argument(
+        "--vision-tower",
+        default="/home/llmtrainer/LLM/irlab-llm/LISA/LISA/clip-vit-large-patch14",
+        type=str,
     )
     parser.add_argument("--out_dim", default=256, type=int)
     parser.add_argument("--local-rank", default=0, type=int, help="node rank")
@@ -56,9 +75,14 @@ def parse_args(args):
         choices=["llava_v1", "llava_llama_2", "llava_v1.5"],
     )
     parser.add_argument("--train_mask_decoder", action="store_true", default=True)
-    parser.add_argument("--weight", default="/home/llmtrainer/Multimodal/EPM/checkpoint/pytorch_model_mix_n1.bin", type=str)
+    parser.add_argument(
+        "--weight",
+        default="/home/llmtrainer/Multimodal/EPM/checkpoint/pytorch_model_mix_n1.bin",
+        type=str,
+    )
     parser.add_argument("--local_rank", default=0, type=int)
     return parser.parse_args(args)
+
 
 def preprocess(
     x,
@@ -76,15 +100,16 @@ def preprocess(
     x = F.pad(x, (0, padw, 0, padh))
     return x
 
+
 args = parse_args(sys.argv[1:])
 # Create model
 tokenizer = AutoTokenizer.from_pretrained(
-        args.version,
-        cache_dir=None,
-        model_max_length=args.model_max_length,
-        padding_side="right",
-        use_fast=False,
-    )
+    args.version,
+    cache_dir=None,
+    model_max_length=args.model_max_length,
+    padding_side="right",
+    use_fast=False,
+)
 tokenizer.pad_token = tokenizer.unk_token
 num_added_tokens = tokenizer.add_tokens("[MODULE]")
 args.seg_token_idx = tokenizer("[MODULE]", add_special_tokens=False).input_ids[0]
@@ -92,21 +117,21 @@ args.seg_token_idx = tokenizer("[MODULE]", add_special_tokens=False).input_ids[0
 if args.conv_type == "llava_v1.5":
     replace_llama_attn_with_flash_attn()
     args.use_mm_start_end = False
-    
+
 if args.use_mm_start_end:
     tokenizer.add_tokens(
-            [DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN], special_tokens=True
-        )
+        [DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN], special_tokens=True
+    )
 
 model_args = {
-        "train_mask_decoder": args.train_mask_decoder,
-        "out_dim": args.out_dim,
-        "module_token_idx": args.seg_token_idx,
-        "vision_tower": args.vision_tower,
-        "use_mm_start_end": args.use_mm_start_end,
-        "vision_pretrained": args.vision_pretrained,
-        "use_cache": False,
-    }
+    "train_mask_decoder": args.train_mask_decoder,
+    "out_dim": args.out_dim,
+    "module_token_idx": args.seg_token_idx,
+    "vision_tower": args.vision_tower,
+    "use_mm_start_end": args.use_mm_start_end,
+    "vision_pretrained": args.vision_pretrained,
+    "use_cache": False,
+}
 
 torch_dtype = torch.float32
 if args.precision == "bf16":
@@ -114,8 +139,8 @@ if args.precision == "bf16":
 elif args.precision == "fp16":
     torch_dtype = torch.half
 model = LISAForCausalLM.from_pretrained(
-        args.version, torch_dtype=torch_dtype, low_cpu_mem_usage=True, **model_args
-    )
+    args.version, torch_dtype=torch_dtype, low_cpu_mem_usage=True, **model_args
+)
 
 model.config.eos_token_id = tokenizer.eos_token_id
 model.config.bos_token_id = tokenizer.bos_token_id
@@ -139,10 +164,10 @@ if lora_r > 0:
                     [
                         x not in name
                         for x in [
-                                "visual_model",
-                                "vision_tower",
-                                "mm_projector",
-                                "text_hidden_fcs",
+                            "visual_model",
+                            "vision_tower",
+                            "mm_projector",
+                            "text_hidden_fcs",
                         ]
                     ]
                 )
@@ -153,17 +178,15 @@ if lora_r > 0:
 
     lora_alpha = args.lora_alpha
     lora_dropout = args.lora_dropout
-    lora_target_modules = find_linear_layers(
-            model, args.lora_target_modules.split(",")
-        )
+    lora_target_modules = find_linear_layers(model, args.lora_target_modules.split(","))
     lora_config = LoraConfig(
-            r=lora_r,
-            lora_alpha=lora_alpha,
-            target_modules=lora_target_modules,
-            lora_dropout=lora_dropout,
-            bias="none",
-            task_type="CAUSAL_LM",
-        )
+        r=lora_r,
+        lora_alpha=lora_alpha,
+        target_modules=lora_target_modules,
+        lora_dropout=lora_dropout,
+        bias="none",
+        task_type="CAUSAL_LM",
+    )
     model = get_peft_model(model, lora_config)
     # model.print_trainable_parameters()
 
@@ -173,19 +196,17 @@ model.load_state_dict(state_dict, strict=True)
 
 if args.precision == "bf16":
     model = model.bfloat16().cuda()
-elif (
-        args.precision == "fp16" and (not args.load_in_4bit) and (not args.load_in_8bit)
-    ):
+elif args.precision == "fp16" and (not args.load_in_4bit) and (not args.load_in_8bit):
     vision_tower = model.get_model().get_vision_tower()
     model.model.vision_tower = None
     import deepspeed
 
     model_engine = deepspeed.init_inference(
-            model=model,
-            dtype=torch.half,
-            replace_with_kernel_inject=True,
-            replace_method="auto",
-        )
+        model=model,
+        dtype=torch.half,
+        replace_with_kernel_inject=True,
+        replace_method="auto",
+    )
     model = model_engine.module
     model.model.vision_tower = vision_tower.half().cuda()
 elif args.precision == "fp32":
@@ -197,29 +218,37 @@ vision_tower.to(device=args.local_rank)
 clip_image_processor = CLIPImageProcessor.from_pretrained(model.config.vision_tower)
 transform = ResizeLongestSide(args.image_size)
 
-def segment_api(image_path, output_path, name, absolute_position="", relative_position="", function=""):
+
+def segment_api(
+    image_path,
+    output_path,
+    name,
+    absolute_position="",
+    relative_position="",
+    function="",
+):
     # model.set_adapter("segment")
 
     model.eval()
 
     conv = conversation_lib.conv_templates[args.conv_type].copy()
     conv.messages = []
-    
+
     prompt = question_templates(
-                {
-                    "name": name,
-                    "function": function,
-                    "relative position": relative_position,
-                    "absolute position": absolute_position,
-                }
-           )
+        {
+            "name": name,
+            "function": function,
+            "relative position": relative_position,
+            "absolute position": absolute_position,
+        }
+    )
     prompt = prompt[0]
     # print(prompt)
 
     if args.use_mm_start_end:
         replace_token = (
-                    DEFAULT_IM_START_TOKEN + DEFAULT_IMAGE_TOKEN + DEFAULT_IM_END_TOKEN
-                )
+            DEFAULT_IM_START_TOKEN + DEFAULT_IMAGE_TOKEN + DEFAULT_IM_END_TOKEN
+        )
         prompt = prompt.replace(DEFAULT_IMAGE_TOKEN, replace_token)
 
     conv.append_message(conv.roles[0], prompt)
@@ -231,12 +260,12 @@ def segment_api(image_path, output_path, name, absolute_position="", relative_po
     original_size_list = [image_np.shape[:2]]
 
     image_clip = (
-            clip_image_processor.preprocess(image_np, return_tensors="pt")[
-                "pixel_values"
-            ][0]
-            .unsqueeze(0)
-            .cuda()
-        )
+        clip_image_processor.preprocess(image_np, return_tensors="pt")["pixel_values"][
+            0
+        ]
+        .unsqueeze(0)
+        .cuda()
+    )
     if args.precision == "bf16":
         image_clip = image_clip.bfloat16()
     elif args.precision == "fp16":
@@ -248,10 +277,10 @@ def segment_api(image_path, output_path, name, absolute_position="", relative_po
     resize_list = [image.shape[:2]]
 
     image = (
-            preprocess(torch.from_numpy(image).permute(2, 0, 1).contiguous())
-            .unsqueeze(0)
-            .cuda()
-        )
+        preprocess(torch.from_numpy(image).permute(2, 0, 1).contiguous())
+        .unsqueeze(0)
+        .cuda()
+    )
     if args.precision == "bf16":
         image = image.bfloat16()
     elif args.precision == "fp16":
@@ -263,20 +292,20 @@ def segment_api(image_path, output_path, name, absolute_position="", relative_po
     input_ids = input_ids.unsqueeze(0).cuda()
 
     output_ids, pred_masks = model.evaluate(
-            image_clip,
-            image,
-            input_ids,
-            resize_list,
-            original_size_list,
-            max_new_tokens=512,
-            tokenizer=tokenizer,
-        )
+        image_clip,
+        image,
+        input_ids,
+        resize_list,
+        original_size_list,
+        max_new_tokens=512,
+        tokenizer=tokenizer,
+    )
     output_ids = output_ids[0][output_ids[0] != IMAGE_TOKEN_INDEX]
 
     text_output = tokenizer.decode(output_ids, skip_special_tokens=False)
     text_output = text_output.replace("\n", "").replace("  ", " ")
     # print(text_output)
-    
+
     exist = True
     for i, pred_mask in enumerate(pred_masks):
         if pred_mask.shape[0] == 0:
@@ -287,46 +316,44 @@ def segment_api(image_path, output_path, name, absolute_position="", relative_po
 
         save_img = image_np.copy()
         save_img[pred_mask] = (
-                image_np * 0.5
-                + pred_mask[:, :, None].astype(np.uint8) * np.array([255, 0, 0]) * 0.5
-            )[pred_mask]
+            image_np * 0.5
+            + pred_mask[:, :, None].astype(np.uint8) * np.array([255, 0, 0]) * 0.5
+        )[pred_mask]
         save_img = cv2.cvtColor(save_img, cv2.COLOR_RGB2BGR)
         cv2.imwrite(output_path, save_img)
-        if np.where(pred_mask==1)[0].shape[0] == 0:
+        if np.where(pred_mask == 1)[0].shape[0] == 0:
             exist = False
         return pred_mask, exist
 
 
-def segment_vote_api(image_path, output_path, name, absolute_position, relative_position, function):
+def segment_vote_api(
+    image_path, output_path, name, absolute_position, relative_position, function
+):
 
     model.eval()
 
-    
     all_classes = {
-                    "name": name,
-                    "function": function,
-                    "relative position": relative_position,
-                    "absolute position": absolute_position,
-                }
-    name_rel_pos = {k: all_classes[k] for k in ['name', 'relative position']}
-    name_abs_pos = {k: all_classes[k] for k in ['name', 'absolute position']}
-    name_func = {k: all_classes[k] for k in ['name', 'function']}
+        "name": name,
+        "function": function,
+        "relative position": relative_position,
+        "absolute position": absolute_position,
+    }
+    name_rel_pos = {k: all_classes[k] for k in ["name", "relative position"]}
+    name_abs_pos = {k: all_classes[k] for k in ["name", "absolute position"]}
+    name_func = {k: all_classes[k] for k in ["name", "function"]}
 
     sampled_classes = [name_rel_pos, name_abs_pos, name_func]
     prompt_list = []
     for classes in sampled_classes:
         conv = conversation_lib.conv_templates[args.conv_type].copy()
         conv.messages = []
-        prompt = question_templates(
-                classes
-           )
+        prompt = question_templates(classes)
         prompt = prompt[0]
-        
 
         if args.use_mm_start_end:
             replace_token = (
-                        DEFAULT_IM_START_TOKEN + DEFAULT_IMAGE_TOKEN + DEFAULT_IM_END_TOKEN
-                    )
+                DEFAULT_IM_START_TOKEN + DEFAULT_IMAGE_TOKEN + DEFAULT_IM_END_TOKEN
+            )
             prompt = prompt.replace(DEFAULT_IMAGE_TOKEN, replace_token)
 
         conv.append_message(conv.roles[0], prompt)
@@ -339,12 +366,12 @@ def segment_vote_api(image_path, output_path, name, absolute_position, relative_
     original_size_list = [image_np.shape[:2]]
 
     image_clip = (
-            clip_image_processor.preprocess(image_np, return_tensors="pt")[
-                "pixel_values"
-            ][0]
-            .unsqueeze(0)
-            .cuda()
-        )
+        clip_image_processor.preprocess(image_np, return_tensors="pt")["pixel_values"][
+            0
+        ]
+        .unsqueeze(0)
+        .cuda()
+    )
     if args.precision == "bf16":
         image_clip = image_clip.bfloat16()
     elif args.precision == "fp16":
@@ -356,17 +383,17 @@ def segment_vote_api(image_path, output_path, name, absolute_position, relative_
     resize_list = [image.shape[:2]]
 
     image = (
-            preprocess(torch.from_numpy(image).permute(2, 0, 1).contiguous())
-            .unsqueeze(0)
-            .cuda()
-        )
+        preprocess(torch.from_numpy(image).permute(2, 0, 1).contiguous())
+        .unsqueeze(0)
+        .cuda()
+    )
     if args.precision == "bf16":
         image = image.bfloat16()
     elif args.precision == "fp16":
         image = image.half()
     else:
         image = image.float()
-    
+
     pred = []
 
     neg = []
@@ -377,14 +404,14 @@ def segment_vote_api(image_path, output_path, name, absolute_position, relative_
         input_ids = input_ids.unsqueeze(0).cuda()
 
         output_ids, pred_masks = model.evaluate(
-                image_clip,
-                image,
-                input_ids,
-                resize_list,
-                original_size_list,
-                max_new_tokens=512,
-                tokenizer=tokenizer,
-            )
+            image_clip,
+            image,
+            input_ids,
+            resize_list,
+            original_size_list,
+            max_new_tokens=512,
+            tokenizer=tokenizer,
+        )
         for i, pred_mask in enumerate(pred_masks):
             if torch.sum(pred_mask) == 0:
                 neg.append(1)
@@ -395,10 +422,9 @@ def segment_vote_api(image_path, output_path, name, absolute_position, relative_
             pred_mask = pred_mask.detach().cpu().numpy()[0]
             pred.append(pred_mask)
             # pred.append((pred_mask > 0).astype(np.int32))
-    pred_mask = np.sum(pred, axis=0) 
+    pred_mask = np.sum(pred, axis=0)
     pred_mask = pred_mask / len(pred)
     pred_mask = pred_mask > 0
-
 
     if np.sum(neg) >= len(neg) // 2:
         pred_mask = np.zeros_like(pred_mask)
@@ -406,47 +432,45 @@ def segment_vote_api(image_path, output_path, name, absolute_position, relative_
 
     save_img = image_np.copy()
     save_img[pred_mask] = (
-                image_np * 0.5
-                + pred_mask[:, :, None].astype(np.uint8) * np.array([255, 0, 0]) * 0.5
-            )[pred_mask]
+        image_np * 0.5
+        + pred_mask[:, :, None].astype(np.uint8) * np.array([255, 0, 0]) * 0.5
+    )[pred_mask]
     save_img = cv2.cvtColor(save_img, cv2.COLOR_RGB2BGR)
     cv2.imwrite(output_path, save_img)
     # print("saved image path: ", output_path)
-    if np.where(pred_mask==1)[0].shape[0] == 0:
+    if np.where(pred_mask == 1)[0].shape[0] == 0:
         exist = False
     return pred_mask, exist
 
 
-def segment_vote_p_api(image_path, output_path, name, absolute_position, relative_position, function):
+def segment_vote_p_api(
+    image_path, output_path, name, absolute_position, relative_position, function
+):
 
     model.eval()
 
-    
     all_classes = {
-                    "name": name,
-                    "function": function,
-                    "relative position": relative_position,
-                    "absolute position": absolute_position,
-                }
-    name_rel_pos = {k: all_classes[k] for k in ['name', 'relative position']}
-    name_abs_pos = {k: all_classes[k] for k in ['name', 'absolute position']}
-    name_func = {k: all_classes[k] for k in ['name', 'function']}
+        "name": name,
+        "function": function,
+        "relative position": relative_position,
+        "absolute position": absolute_position,
+    }
+    name_rel_pos = {k: all_classes[k] for k in ["name", "relative position"]}
+    name_abs_pos = {k: all_classes[k] for k in ["name", "absolute position"]}
+    name_func = {k: all_classes[k] for k in ["name", "function"]}
 
     sampled_classes = [name_rel_pos, name_abs_pos, name_func]
     prompt_list = []
     for classes in sampled_classes:
         conv = conversation_lib.conv_templates[args.conv_type].copy()
         conv.messages = []
-        prompt = question_templates(
-                classes
-           )
+        prompt = question_templates(classes)
         prompt = prompt[0]
-        
 
         if args.use_mm_start_end:
             replace_token = (
-                        DEFAULT_IM_START_TOKEN + DEFAULT_IMAGE_TOKEN + DEFAULT_IM_END_TOKEN
-                    )
+                DEFAULT_IM_START_TOKEN + DEFAULT_IMAGE_TOKEN + DEFAULT_IM_END_TOKEN
+            )
             prompt = prompt.replace(DEFAULT_IMAGE_TOKEN, replace_token)
 
         conv.append_message(conv.roles[0], prompt)
@@ -459,12 +483,12 @@ def segment_vote_p_api(image_path, output_path, name, absolute_position, relativ
     original_size_list = [image_np.shape[:2]]
 
     image_clip = (
-            clip_image_processor.preprocess(image_np, return_tensors="pt")[
-                "pixel_values"
-            ][0]
-            .unsqueeze(0)
-            .cuda()
-        )
+        clip_image_processor.preprocess(image_np, return_tensors="pt")["pixel_values"][
+            0
+        ]
+        .unsqueeze(0)
+        .cuda()
+    )
     if args.precision == "bf16":
         image_clip = image_clip.bfloat16()
     elif args.precision == "fp16":
@@ -476,26 +500,59 @@ def segment_vote_p_api(image_path, output_path, name, absolute_position, relativ
     resize_list = [image.shape[:2]]
 
     image = (
-            preprocess(torch.from_numpy(image).permute(2, 0, 1).contiguous())
-            .unsqueeze(0)
-            .cuda()
-        )
+        preprocess(torch.from_numpy(image).permute(2, 0, 1).contiguous())
+        .unsqueeze(0)
+        .cuda()
+    )
     if args.precision == "bf16":
         image = image.bfloat16()
     elif args.precision == "fp16":
         image = image.half()
     else:
         image = image.float()
-    
+
     pred = []
 
     neg = []
 
     pool = ThreadPoolExecutor(max_workers=3)
     futures = []
-    feature_1 = pool.submit(model.evaluate, image_clip, image, tokenizer_image_token(prompt_list[0], tokenizer, return_tensors="pt").unsqueeze(0).cuda(), resize_list, original_size_list, 512, tokenizer)
-    feature_2 = pool.submit(model.evaluate, image_clip, image, tokenizer_image_token(prompt_list[1], tokenizer, return_tensors="pt").unsqueeze(0).cuda(), resize_list, original_size_list, 512, tokenizer)
-    feature_3 = pool.submit(model.evaluate, image_clip, image, tokenizer_image_token(prompt_list[2], tokenizer, return_tensors="pt").unsqueeze(0).cuda(), resize_list, original_size_list, 512, tokenizer)
+    feature_1 = pool.submit(
+        model.evaluate,
+        image_clip,
+        image,
+        tokenizer_image_token(prompt_list[0], tokenizer, return_tensors="pt")
+        .unsqueeze(0)
+        .cuda(),
+        resize_list,
+        original_size_list,
+        512,
+        tokenizer,
+    )
+    feature_2 = pool.submit(
+        model.evaluate,
+        image_clip,
+        image,
+        tokenizer_image_token(prompt_list[1], tokenizer, return_tensors="pt")
+        .unsqueeze(0)
+        .cuda(),
+        resize_list,
+        original_size_list,
+        512,
+        tokenizer,
+    )
+    feature_3 = pool.submit(
+        model.evaluate,
+        image_clip,
+        image,
+        tokenizer_image_token(prompt_list[2], tokenizer, return_tensors="pt")
+        .unsqueeze(0)
+        .cuda(),
+        resize_list,
+        original_size_list,
+        512,
+        tokenizer,
+    )
 
     futures.append(feature_1)
     futures.append(feature_2)
@@ -537,10 +594,9 @@ def segment_vote_p_api(image_path, output_path, name, absolute_position, relativ
     #         pred_mask = pred_mask.detach().cpu().numpy()[0]
     #         pred.append(pred_mask)
     #         # pred.append((pred_mask > 0).astype(np.int32))
-    pred_mask = np.sum(pred, axis=0) 
+    pred_mask = np.sum(pred, axis=0)
     pred_mask = pred_mask / len(pred)
     pred_mask = pred_mask > 0
-
 
     if np.sum(neg) >= len(neg) // 2:
         pred_mask = np.zeros_like(pred_mask)
@@ -548,11 +604,11 @@ def segment_vote_p_api(image_path, output_path, name, absolute_position, relativ
 
     save_img = image_np.copy()
     save_img[pred_mask] = (
-                image_np * 0.5
-                + pred_mask[:, :, None].astype(np.uint8) * np.array([255, 0, 0]) * 0.5
-            )[pred_mask]
+        image_np * 0.5
+        + pred_mask[:, :, None].astype(np.uint8) * np.array([255, 0, 0]) * 0.5
+    )[pred_mask]
     save_img = cv2.cvtColor(save_img, cv2.COLOR_RGB2BGR)
     cv2.imwrite(output_path, save_img)
-    if np.where(pred_mask==1)[0].shape[0] == 0:
+    if np.where(pred_mask == 1)[0].shape[0] == 0:
         exist = False
     return pred_mask, exist

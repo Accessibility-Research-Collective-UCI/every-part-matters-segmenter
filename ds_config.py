@@ -35,6 +35,6 @@ def init_ds(args):
             "reduce_bucket_size": 5e8,
             "allgather_bucket_size": 5e8,
         },
-        "master_port": 29501
+        "master_port": 29501,
     }
     return ds_config

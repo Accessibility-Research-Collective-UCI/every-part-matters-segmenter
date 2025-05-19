@@ -14,11 +14,21 @@ IMAGE_TOKEN_INDEX = -200
 
 
 QUESTION_PROMPT = [
-    DEFAULT_IMAGE_TOKEN + "\n" + "Segment the corresponding module from the figure based on the given attributes: {attributes}.",
-    DEFAULT_IMAGE_TOKEN + "\n" + "Using the provided attributes—{attributes}—extract the relevant module from the figure.",
-    DEFAULT_IMAGE_TOKEN + "\n" + "Identify and isolate the module within the figure by referencing the specified characteristics: {attributes}.",
-    DEFAULT_IMAGE_TOKEN + "\n" + "Apply the attributes {attributes} to segment the appropriate module from the figure.",
-    DEFAULT_IMAGE_TOKEN + "\n" + "Utilize the defined attributes—namely, {attributes}—to delineate the target module from the figure."
+    DEFAULT_IMAGE_TOKEN
+    + "\n"
+    + "Segment the corresponding module from the figure based on the given attributes: {attributes}.",
+    DEFAULT_IMAGE_TOKEN
+    + "\n"
+    + "Using the provided attributes—{attributes}—extract the relevant module from the figure.",
+    DEFAULT_IMAGE_TOKEN
+    + "\n"
+    + "Identify and isolate the module within the figure by referencing the specified characteristics: {attributes}.",
+    DEFAULT_IMAGE_TOKEN
+    + "\n"
+    + "Apply the attributes {attributes} to segment the appropriate module from the figure.",
+    DEFAULT_IMAGE_TOKEN
+    + "\n"
+    + "Utilize the defined attributes—namely, {attributes}—to delineate the target module from the figure.",
 ]
 
 ANSWER_LIST = [
@@ -26,7 +36,7 @@ ANSWER_LIST = [
     "The module subjected to segmentation is [MODULE].",
     "[MODULE].",
     "The segmented portion corresponds to [MODULE].",
-    "Segmentation has been applied to [MODULE]."
+    "Segmentation has been applied to [MODULE].",
 ]
 
 NEGATIVE_ANSWER_LIST = [
@@ -39,7 +49,7 @@ def question_templates(classes):
         "name": "unknown",
         "function": "unknown",
         "relative position": "unknown",
-        "absolute position": "unknown"
+        "absolute position": "unknown",
     }
     for cls in classes.keys():
         if classes[cls] != "":
@@ -60,33 +70,39 @@ def atrr_vqa_templates(data):
     ab_position = [
         {
             "from": "human",
-            "value": "What is the absolute position of the '%s' in the image?" % data["name"]
+            "value": "What is the absolute position of the '%s' in the image?"
+            % data["name"],
         },
         {
             "from": "gpt",
-            "value": "The absolute position of the '%s' in the image is %s" % (data["name"], data["position"][0][0].lower() + data["position"][0][1:])
-        }
+            "value": "The absolute position of the '%s' in the image is %s"
+            % (data["name"], data["position"][0][0].lower() + data["position"][0][1:]),
+        },
     ]
     rel_position = [
         {
             "from": "human",
-            "value": "What is the relative position of the '%s' in the image?" % data["name"]
+            "value": "What is the relative position of the '%s' in the image?"
+            % data["name"],
         },
         {
             "from": "gpt",
-            "value": "The relative position of the '%s' in the image is %s" % (data["name"], data["position"][1][0].lower() + data["position"][1][1:])
-        }
+            "value": "The relative position of the '%s' in the image is %s"
+            % (data["name"], data["position"][1][0].lower() + data["position"][1][1:]),
+        },
     ]
     if len(data["function"]) > 0:
         function = [
             {
                 "from": "human",
-                "value": "What is the function of the '%s' in the image?" % data["name"]
+                "value": "What is the function of the '%s' in the image?"
+                % data["name"],
             },
             {
                 "from": "gpt",
-                "value": "The function of the '%s' in the image is %s" % (data["name"], data["function"][0].lower() + data["function"][1:])
-            }
+                "value": "The function of the '%s' in the image is %s"
+                % (data["name"], data["function"][0].lower() + data["function"][1:]),
+            },
         ]
     if len(function) > 0:
         return [ab_position, rel_position, function]
@@ -99,34 +115,28 @@ def atrr_vqa_templates_neg(data):
     ab_position = [
         {
             "from": "human",
-            "value": "What is the absolute position of the '%s' in the image?" % data["name"]
+            "value": "What is the absolute position of the '%s' in the image?"
+            % data["name"],
         },
-        {
-            "from": "gpt",
-            "value": "This module does not exist in the image."
-        }
+        {"from": "gpt", "value": "This module does not exist in the image."},
     ]
     rel_position = [
         {
             "from": "human",
-            "value": "What is the relative position of the '%s' in the image?" % data["name"]
+            "value": "What is the relative position of the '%s' in the image?"
+            % data["name"],
         },
-        {
-            "from": "gpt",
-            "value": "This module does not exist in the image."
-        }
+        {"from": "gpt", "value": "This module does not exist in the image."},
     ]
     function = [
-            {
-                "from": "human",
-                "value": "What is the function of the '%s' in the image?" % data["name"]
-            },
-            {
-                "from": "gpt",
-                "value": "This module does not exist in the image."
-            }
+        {
+            "from": "human",
+            "value": "What is the function of the '%s' in the image?" % data["name"],
+        },
+        {"from": "gpt", "value": "This module does not exist in the image."},
     ]
     return [ab_position, rel_position, function]
+
 
 def every_vqa_templates(data):
     template = [
@@ -134,10 +144,7 @@ def every_vqa_templates(data):
             "from": "human",
             "value": "Tell me the names of all the modules in the figure.",
         },
-        {
-            "from": "gpt",
-            "value": "%s" %  "[" + ", ".join(data["modules"]) + "]."
-        }
+        {"from": "gpt", "value": "%s" % "[" + ", ".join(data["modules"]) + "]."},
     ]
     return [template]
 
@@ -146,14 +153,12 @@ def mask_vqa_templates(data):
     template = [
         {
             "from": "human",
-            "value": "Tell me the name of the module masked in the figure."
+            "value": "Tell me the name of the module masked in the figure.",
         },
-        {
-            "from": "gpt",
-            "value": "%s" % data["name"]
-        }
+        {"from": "gpt", "value": "%s" % data["name"]},
     ]
     return template
+
 
 class Summary(Enum):
     NONE = 0

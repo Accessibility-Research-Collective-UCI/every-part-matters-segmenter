@@ -1,4 +1,5 @@
 import os
+
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 import json
 import torch
@@ -10,14 +11,20 @@ import sys
 
 test_dir = "./dataset/figure_seg/test/"
 test_file_list = os.listdir(test_dir)
-test_data = [json.loads(open(test_dir + f, "r").read()) for f in test_file_list if f.endswith(".json")]
+test_data = [
+    json.loads(open(test_dir + f, "r").read())
+    for f in test_file_list
+    if f.endswith(".json")
+]
 json_list = [f for f in test_file_list if f.endswith(".json")]
+
 
 class Summary(Enum):
     NONE = 0
     AVERAGE = 1
     SUM = 2
     COUNT = 3
+
 
 class AverageMeter(object):
     """Computes and stores the average and current value"""
@@ -83,6 +90,7 @@ class AverageMeter(object):
 
         return fmtstr.format(**self.__dict__)
 
+
 def trans_polygon_to_mask(points, image_path):
     img = cv2.imread(image_path)
     height, width = img.shape[:2]
@@ -118,13 +126,17 @@ def metric(pred_masks, gold_masks):
         area_target = torch.histc(target, bins=K, min=0, max=K - 1)
         area_union = area_output + area_target - area_intersection
         return area_intersection, area_union, area_target
+
     intersection, union, acc_iou = 0.0, 0.0, 0.0
     for pred_mask_i, gold_mask_i in zip(pred_masks, gold_masks):
         pred_mask_i = torch.from_numpy(pred_mask_i.astype(np.int32)).cuda()
         gold_mask_i = torch.from_numpy(gold_mask_i).cuda()
         intersection_i, union_i, _ = intersectionAndUnionGPU(
-                pred_mask_i.contiguous().clone(), gold_mask_i.contiguous(), 2, ignore_index=255
-            )
+            pred_mask_i.contiguous().clone(),
+            gold_mask_i.contiguous(),
+            2,
+            ignore_index=255,
+        )
         intersection += intersection_i
         union += union_i
         acc_iou += intersection_i / (union_i + 1e-5)
@@ -137,9 +149,9 @@ def metric(pred_masks, gold_masks):
     intersection, union = intersection.cpu().numpy(), union.cpu().numpy()
     acc_iou = acc_iou.cpu().numpy() / len(gold_masks)
     intersection_meter.update(intersection), union_meter.update(
-            union
-        ), acc_iou_meter.update(acc_iou, n=len(gold_masks))
-    
+        union
+    ), acc_iou_meter.update(acc_iou, n=len(gold_masks))
+
     # intersection_meter.all_reduce()
     # union_meter.all_reduce()
     # acc_iou_meter.all_reduce()
@@ -149,7 +161,6 @@ def metric(pred_masks, gold_masks):
     giou = acc_iou_meter.avg[1]
 
     print("giou: {:.4f}, ciou: {:.4f}".format(giou, ciou))
-
 
 
 def test_epm():
@@ -162,7 +173,7 @@ def test_epm():
     total_time = 0
     pos_time = 0
     for data in tqdm(test_data):
-        
+
         image_path = data["origin_image"]
         gold_points = data["shapes"][0]["points"]
         gold_points = data["shapes"][0]["points"]
@@ -172,11 +183,27 @@ def test_epm():
         attr = attribute_api(image_path, data["name"])
         attr["name"] = data["name"]
         attr["image_path"] = image_path
-        attr["output_path"] = "./vis_output/epm_{}.jpg".format(data["name"].replace("/", ""))
+        attr["output_path"] = "./vis_output/epm_{}.jpg".format(
+            data["name"].replace("/", "")
+        )
         start_time = time.time()
-        pred_mask, exist = segment_api(image_path=attr["image_path"], name=attr["name"], output_path=attr["output_path"], absolute_position="", relative_position="", function="")
+        pred_mask, exist = segment_api(
+            image_path=attr["image_path"],
+            name=attr["name"],
+            output_path=attr["output_path"],
+            absolute_position="",
+            relative_position="",
+            function="",
+        )
         if exist:
-            pred_mask, _ = segment_vote_api(image_path=attr["image_path"], name=attr["name"], output_path=attr["output_path"], absolute_position=attr["absolute_position"], relative_position=attr["relative_position"], function=attr["function"])
+            pred_mask, _ = segment_vote_api(
+                image_path=attr["image_path"],
+                name=attr["name"],
+                output_path=attr["output_path"],
+                absolute_position=attr["absolute_position"],
+                relative_position=attr["relative_position"],
+                function=attr["function"],
+            )
         end_time = time.time()
         total_time += end_time - start_time
         pos_time += end_time - start_time
@@ -184,29 +211,45 @@ def test_epm():
         gold_masks.append(gold_mask)
         pred_pos_masks.append(pred_mask.astype(np.int32))
         gold_pos_masks.append(gold_mask)
-        
+
         # predict negative module
         attr = attribute_api(image_path, data["neg_module"])
         attr["name"] = data["neg_module"]
         attr["image_path"] = image_path
-        attr["output_path"] = "./vis_output/epm_neg_{}.jpg".format(data["neg_module"].replace("/", ""))
+        attr["output_path"] = "./vis_output/epm_neg_{}.jpg".format(
+            data["neg_module"].replace("/", "")
+        )
         start_time = time.time()
-        pre_mask_neg, exist = segment_api(image_path=attr["image_path"], name=attr["name"], output_path=attr["output_path"], absolute_position="", relative_position="", function="")
+        pre_mask_neg, exist = segment_api(
+            image_path=attr["image_path"],
+            name=attr["name"],
+            output_path=attr["output_path"],
+            absolute_position="",
+            relative_position="",
+            function="",
+        )
         if exist:
             # if don't want to use vote, set the function to segment_api
             # function, absolute_position, relative_position can be set to ""
-            pre_mask_neg, _ = segment_vote_api(image_path=attr["image_path"], name=attr["name"], output_path=attr["output_path"], absolute_position=attr["absolute_position"], relative_position=attr["relative_position"], function=attr["function"])
+            pre_mask_neg, _ = segment_vote_api(
+                image_path=attr["image_path"],
+                name=attr["name"],
+                output_path=attr["output_path"],
+                absolute_position=attr["absolute_position"],
+                relative_position=attr["relative_position"],
+                function=attr["function"],
+            )
         end_time = time.time()
 
         total_time += end_time - start_time
         pred_masks.append(pre_mask_neg.astype(np.int32))
         gold_masks.append(np.zeros_like(gold_mask).astype(np.int32))
-        
-        
+
     print("total time: ", total_time)
     print("average time: ", total_time / (2 * len(test_data)))
     print("pos time: ", pos_time)
     metric(pred_masks, gold_masks)
-    metric(pred_pos_masks,gold_pos_masks)
+    metric(pred_pos_masks, gold_pos_masks)
+
 
 test_epm()

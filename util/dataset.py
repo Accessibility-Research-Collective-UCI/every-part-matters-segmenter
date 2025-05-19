@@ -12,10 +12,21 @@ from .vqa_dataset import VQADataset
 from .atrr_vqa_dataset import ATRRVQADataset
 from .everything_vqa_dataset import EVERYTHINGVQADataset
 from .mask_vqa_dataset import MASKVQADataset
-from .utils import DEFAULT_IMAGE_TOKEN, ANSWER_LIST, question_templates, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN, IGNORE_INDEX, atrr_vqa_templates, every_vqa_templates, mask_vqa_templates
+from .utils import (
+    DEFAULT_IMAGE_TOKEN,
+    ANSWER_LIST,
+    question_templates,
+    DEFAULT_IM_START_TOKEN,
+    DEFAULT_IM_END_TOKEN,
+    IGNORE_INDEX,
+    atrr_vqa_templates,
+    every_vqa_templates,
+    mask_vqa_templates,
+)
 from model.llava.mm_utils import tokenizer_image_token
 import torch.nn.functional as F
 import json
+
 
 class Dataset(torch.utils.data.Dataset):
     pixel_mean = torch.Tensor([123.675, 116.28, 103.53]).view(-1, 1, 1)
@@ -116,7 +127,6 @@ class Dataset(torch.utils.data.Dataset):
                     )
                 )
 
-
     def __len__(self):
         return sum([len(data) for data in self.all_datasets])
 
@@ -151,14 +161,16 @@ class ValDataset(torch.utils.data.Dataset):
         self.tokenizer = tokenizer
         self.transform = ResizeLongestSide(image_size)
         self.clip_image_processor = CLIPImageProcessor.from_pretrained(vision_tower)
-        
+
         self.vqa = []
         if self.data_type == "atrr_vqa":
             for image_path in self.images:
                 json_path = image_path.replace(".png", ".json")
                 image = cv2.imread(image_path)
                 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-                mask_json, sampled_sents = get_mask_from_json(json_path, image, data_type=self.data_type)
+                mask_json, sampled_sents = get_mask_from_json(
+                    json_path, image, data_type=self.data_type
+                )
                 for sent in atrr_vqa_templates(sampled_sents):
                     self.vqa.append(
                         {
@@ -166,7 +178,7 @@ class ValDataset(torch.utils.data.Dataset):
                             "image": image_path,
                             "conversations": sent,
                             "mask": mask_json,
-                            "sent": sampled_sents
+                            "sent": sampled_sents,
                         }
                     )
         elif self.data_type == "everything_vqa":
@@ -174,8 +186,11 @@ class ValDataset(torch.utils.data.Dataset):
             with open(DATA_PATH, "r") as f:
                 org_data = [json.loads(line) for line in f.readlines()]
                 for data in org_data:
-                    image_path =  data["image_path"]
-                    json_path = "/home/llmtrainer/Multimodal/EPM/dataset/figure_seg_checked/" + image_path.replace(".png", ".json")
+                    image_path = data["image_path"]
+                    json_path = (
+                        "/home/llmtrainer/Multimodal/EPM/dataset/figure_seg_checked/"
+                        + image_path.replace(".png", ".json")
+                    )
                     if not os.path.exists(json_path):
                         continue
                     with open(json_path, "r") as f:
@@ -183,7 +198,9 @@ class ValDataset(torch.utils.data.Dataset):
                         image_path = json_data["origin_image"]
                         image = cv2.imread(image_path)
                         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-                        mask_json, sampled_sents = get_mask_from_json(json_path, image, data_type=self.data_type)
+                        mask_json, sampled_sents = get_mask_from_json(
+                            json_path, image, data_type=self.data_type
+                        )
                         for sent in every_vqa_templates(data):
                             self.vqa.append(
                                 {
@@ -191,7 +208,7 @@ class ValDataset(torch.utils.data.Dataset):
                                     "image": image_path,
                                     "conversations": sent,
                                     "mask": mask_json,
-                                    "sent": data["modules"]
+                                    "sent": data["modules"],
                                 }
                             )
         elif self.data_type == "mask_vqa":
@@ -199,23 +216,24 @@ class ValDataset(torch.utils.data.Dataset):
                 json_path = image_path.replace(".png", ".json")
                 image = cv2.imread(image_path)
                 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-                mask_json, sampled_sents = get_mask_from_json(json_path, image, data_type=self.data_type)
+                mask_json, sampled_sents = get_mask_from_json(
+                    json_path, image, data_type=self.data_type
+                )
                 self.vqa.append(
-                        {
-                            "id": image_path,
-                            "image": image_path,
-                            "conversations": mask_vqa_templates(sampled_sents),
-                            "mask": mask_json,
-                            "sent": sampled_sents
-                        }
-                    )
-           
-    
+                    {
+                        "id": image_path,
+                        "image": image_path,
+                        "conversations": mask_vqa_templates(sampled_sents),
+                        "mask": mask_json,
+                        "sent": sampled_sents,
+                    }
+                )
+
     def __len__(self):
         if self.data_type == "atrr_vqa" or self.data_type == "everything_vqa":
             return len(self.vqa)
         return len(self.images)
-    
+
     def preprocess(self, x: torch.Tensor) -> torch.Tensor:
         """Normalize pixel values and pad to a square input."""
         # Normalize colors
@@ -227,41 +245,43 @@ class ValDataset(torch.utils.data.Dataset):
         padw = self.img_size - w
         x = F.pad(x, (0, padw, 0, padh))
         return x
-    
+
     def __getitem__(self, idx):
         conversations = []
         conv = conversation_lib.default_conversation.copy()
-        
 
         if self.data_type == "figure_seg":
             image_path = self.images[idx]
             image = cv2.imread(image_path)
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             json_path = image_path.replace(".png", ".json")
-            mask_json, sampled_sents = get_mask_from_json(json_path, image, data_type=self.data_type)
-            prompt = question_templates({
-                "name": sampled_sents["name"],
-                "function": sampled_sents["function"],
-                "relative position": sampled_sents["position"][1],
-                "absolute position": sampled_sents["position"][0]
-            })
+            mask_json, sampled_sents = get_mask_from_json(
+                json_path, image, data_type=self.data_type
+            )
+            prompt = question_templates(
+                {
+                    "name": sampled_sents["name"],
+                    "function": sampled_sents["function"],
+                    "relative position": sampled_sents["position"][1],
+                    "absolute position": sampled_sents["position"][0],
+                }
+            )
 
-            conv.append_message(
-                        conv.roles[0],
-                        prompt[0]
-                    )
+            conv.append_message(conv.roles[0], prompt[0])
             conv.append_message(conv.roles[1], ANSWER_LIST[0])
             conversations.append(conv.get_prompt())
 
-        elif self.data_type == "atrr_vqa" or self.data_type == "everything_vqa" or self.data_type == "mask_vqa":
+        elif (
+            self.data_type == "atrr_vqa"
+            or self.data_type == "everything_vqa"
+            or self.data_type == "mask_vqa"
+        ):
             # print(self.vqa[idx]['conversations'])
             conv.append_message(
-                    conv.roles[0],
-                    "<image>\n" + self.vqa[idx]['conversations'][0]['value']
+                conv.roles[0], "<image>\n" + self.vqa[idx]["conversations"][0]["value"]
             )
             conv.append_message(
-                    conv.roles[1],
-                    self.vqa[idx]['conversations'][1]['value']
+                conv.roles[1], self.vqa[idx]["conversations"][1]["value"]
             )
             # print(conv.get_prompt())
             conversations.append(conv.get_prompt())
@@ -270,10 +290,7 @@ class ValDataset(torch.utils.data.Dataset):
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             mask_json = self.vqa[idx]["mask"]
             sampled_sents = self.vqa[idx]["sent"]
-        
 
-
-        
         # preprocess image for clip
         image_clip = self.clip_image_processor.preprocess(image, return_tensors="pt")[
             "pixel_values"
@@ -283,8 +300,12 @@ class ValDataset(torch.utils.data.Dataset):
         image = self.transform.apply_image(image)
         resize = image.shape[:2]
         image = self.preprocess(torch.from_numpy(image).permute(2, 0, 1).contiguous())
-        
-        if self.data_type == "atrr_vqa" or self.data_type == "everything_vqa" or self.data_type == "mask_vqa":
+
+        if (
+            self.data_type == "atrr_vqa"
+            or self.data_type == "everything_vqa"
+            or self.data_type == "mask_vqa"
+        ):
             masks = torch.from_numpy(mask_json)
         else:
             masks = [mask_json]
@@ -369,7 +390,7 @@ def collate_fn(
 
     conv = conversation_lib.default_conversation.copy()
     targets = input_ids.clone()
-    
+
     if conv_type == "llava_v1.5":
         sep = conv.sep + conv.roles[1] + ": "
     elif conv_type == "llava_llama2":

@@ -18,8 +18,14 @@ from typing import List, Optional, Tuple, Union
 import torch
 import torch.nn as nn
 from torch.nn import CrossEntropyLoss
-from transformers import (AutoConfig, AutoModelForCausalLM, LlamaConfig,
-                          LlamaForCausalLM, LlamaModel, AutoTokenizer)
+from transformers import (
+    AutoConfig,
+    AutoModelForCausalLM,
+    LlamaConfig,
+    LlamaForCausalLM,
+    LlamaModel,
+    AutoTokenizer,
+)
 from transformers.modeling_outputs import CausalLMOutputWithPast
 
 from ..llava_arch import LlavaMetaForCausalLM, LlavaMetaModel
@@ -43,11 +49,11 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
         super(LlamaForCausalLM, self).__init__(config)
 
         self.model = LlavaLlamaModel(config)
-        self.tokenizer = AutoTokenizer.from_pretrained("/data_share/model_hub/llava/llava-v1.5-13b")
-        self.tokenizer.add_tokens("[MODULE]")
-        self.tokenizer.add_tokens(
-            ['<im_start>', '<im_end>'], special_tokens=True
+        self.tokenizer = AutoTokenizer.from_pretrained(
+            "/data_share/model_hub/llava/llava-v1.5-13b"
         )
+        self.tokenizer.add_tokens("[MODULE]")
+        self.tokenizer.add_tokens(["<im_start>", "<im_end>"], special_tokens=True)
 
         self.lm_head = nn.Linear(config.hidden_size, config.vocab_size, bias=False)
 

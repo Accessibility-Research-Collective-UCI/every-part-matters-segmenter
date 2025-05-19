@@ -1,4 +1,5 @@
 import os
+
 os.environ["CUDA_VISIBLE_DEVICES"] = "2"
 import sys
 import zipfile
@@ -15,11 +16,13 @@ from enum import Enum
 DEVICE = "cuda:0"
 output_path = "vis_output/"
 
+
 class Summary(Enum):
     NONE = 0
     AVERAGE = 1
     SUM = 2
     COUNT = 3
+
 
 class AverageMeter(object):
     """Computes and stores the average and current value"""
@@ -85,6 +88,7 @@ class AverageMeter(object):
 
         return fmtstr.format(**self.__dict__)
 
+
 def trans_polygon_to_mask(points, image_path):
     img = cv2.imread(image_path)
     height, width = img.shape[:2]
@@ -120,13 +124,17 @@ def metric(pred_masks, gold_masks):
         area_target = torch.histc(target, bins=K, min=0, max=K - 1)
         area_union = area_output + area_target - area_intersection
         return area_intersection, area_union, area_target
+
     intersection, union, acc_iou = 0.0, 0.0, 0.0
     for pred_mask_i, gold_mask_i in zip(pred_masks, gold_masks):
         pred_mask_i = torch.from_numpy(pred_mask_i.astype(np.int32)).cuda()
         gold_mask_i = torch.from_numpy(gold_mask_i).cuda()
         intersection_i, union_i, _ = intersectionAndUnionGPU(
-                pred_mask_i.contiguous().clone(), gold_mask_i.contiguous(), 2, ignore_index=255
-            )
+            pred_mask_i.contiguous().clone(),
+            gold_mask_i.contiguous(),
+            2,
+            ignore_index=255,
+        )
         intersection += intersection_i
         union += union_i
         acc_iou += intersection_i / (union_i + 1e-5)
@@ -139,9 +147,9 @@ def metric(pred_masks, gold_masks):
     intersection, union = intersection.cpu().numpy(), union.cpu().numpy()
     acc_iou = acc_iou.cpu().numpy() / len(gold_masks)
     intersection_meter.update(intersection), union_meter.update(
-            union
-        ), acc_iou_meter.update(acc_iou, n=len(gold_masks))
-    
+        union
+    ), acc_iou_meter.update(acc_iou, n=len(gold_masks))
+
     # intersection_meter.all_reduce()
     # union_meter.all_reduce()
     # acc_iou_meter.all_reduce()
@@ -152,8 +160,9 @@ def metric(pred_masks, gold_masks):
 
     print("giou: {:.4f}, ciou: {:.4f}".format(giou, ciou))
 
+
 # ocr + ner + segment
-class Pipeline():
+class Pipeline:
     def __init__(self, ocr="epm", ner="bert", segment="epm", attribute="epm") -> None:
         self.ocr_type = ocr
         self.ocr_model = self.inint_ocr(self.ocr_type)
@@ -162,27 +171,29 @@ class Pipeline():
         self.sam_model = self.inint_segment(self.segment_type)
         self.attribute = attribute
 
-    
     def inint_ocr(self, ocr_model):
         if ocr_model == "epm":
             from ocr import ocr_api
+
             model = ocr_api.ocr_api
         elif ocr_model == "paddle_ocr":
             from paddleocr import PaddleOCR
+
             model = PaddleOCR(use_angle_cls=True, lang="en", use_gpu=False)
         elif ocr_model == "gpt4" or ocr_model == "mplug" or ocr_model == "ideal":
             model = None
 
         return model
-    
+
     def inint_segment(self, segment_model):
         if segment_model == "epm":
             from segment import segment_api
-            model =  segment_api.segment_vote_api
+
+            model = segment_api.segment_vote_api
         else:
             model = None
         return model
-    
+
     def forward(self, image_path, text, gold_modules, gold_check_modules=[]):
 
         # step 1 ocr
@@ -210,10 +221,11 @@ class Pipeline():
             modules = gold_modules
         modules = list(set(modules))
         print("OCR: ", modules)
-        
+
         # step 2 ner
         if self.ner_model == "bert":
             from ner.bert_ner.inference import ner
+
             words = ner(text)
         elif self.ner_model == "gpt4":
             ner_file = open("ner/gpt_ner.json", "r", encoding="utf-8")
@@ -225,7 +237,7 @@ class Pipeline():
             words = gold_check_modules
         words = list(set(words))
         print("NER: ", words)
-        
+
         # step 3 segment
         checked_words = []
         for word in words:
@@ -239,7 +251,6 @@ class Pipeline():
         checked_modules = {}
         missed_modules = {}
 
-        
         for word in missed_words:
             if self.segment_type == "epm":
                 if self.attribute == "epm":
@@ -248,7 +259,11 @@ class Pipeline():
                     try:
                         attr = self.gpt4_attribute[image_path][word]
                     except:
-                        attr = {"absolute_position": "", "relative_position": "", "function": ""}
+                        attr = {
+                            "absolute_position": "",
+                            "relative_position": "",
+                            "function": "",
+                        }
                 elif self.attribute == "llava":
                     for l in self.llava_attribute:
                         if l["image_path"] == image_path and l["name"] == word:
@@ -259,31 +274,52 @@ class Pipeline():
                         if l["image_path"] == image_path and l["name"] == word:
                             attr = l
                             break
-                _, exist = segment_api.segment_api(name=word, image_path=image_path, output_path=output_path+image_path.split("/")[-1].replace(".png", "_")+word+".png")
+                _, exist = segment_api.segment_api(
+                    name=word,
+                    image_path=image_path,
+                    output_path=output_path
+                    + image_path.split("/")[-1].replace(".png", "_")
+                    + word
+                    + ".png",
+                )
                 if exist:
-                    missed_mask, exist = self.sam_model(name=word, image_path=image_path,  output_path=output_path+image_path.split("/")[-1].replace(".png", "_")+word+".png", absolute_position=attr["absolute_position"], relative_position=attr["relative_position"], function=attr["function"])
+                    missed_mask, exist = self.sam_model(
+                        name=word,
+                        image_path=image_path,
+                        output_path=output_path
+                        + image_path.split("/")[-1].replace(".png", "_")
+                        + word
+                        + ".png",
+                        absolute_position=attr["absolute_position"],
+                        relative_position=attr["relative_position"],
+                        function=attr["function"],
+                    )
                     missed_modules[word] = missed_mask
-                    
+
                 else:
-                    raise ValueError("Invalid strategy")        
-            
-        
+                    raise ValueError("Invalid strategy")
+
         return words, modules, missed_modules, checked_modules
 
-    
+
 test_dir = "dataset/iv_test/"
 test_file_list = os.listdir(test_dir)
-test_data = [json.loads(open(test_dir + f, "r").read()) for f in test_file_list if f.endswith(".json")]
+test_data = [
+    json.loads(open(test_dir + f, "r").read())
+    for f in test_file_list
+    if f.endswith(".json")
+]
 json_list = [f for f in test_file_list if f.endswith(".json")]
 
 
 def test_iv(segment="epm", ocr="gpt4", ner="gpt4", attribute="epm"):
     import time
+
     pipeline = Pipeline(segment=segment, ocr=ocr, ner=ner, attribute=attribute)
     pred_masks = []
     gold_masks = []
     acc, pre, gold = 0, 0, 0
-    
+
     total_time = 0
     for data in tqdm(test_data):
         start_time = time.time()
@@ -292,7 +328,9 @@ def test_iv(segment="epm", ocr="gpt4", ner="gpt4", attribute="epm"):
         missed_modules = list(set(data["missed_modules"]))
         modules = list(set(data["modules"]))
         checked_modules = [m for m in modules if m not in missed_modules]
-        _, _, pred_missed_modules, pred_checked_modules = pipeline.forward(image_path, text, modules, checked_modules)
+        _, _, pred_missed_modules, pred_checked_modules = pipeline.forward(
+            image_path, text, modules, checked_modules
+        )
 
         gold_points = data["shapes"][0]["points"]
         gold += len(missed_modules)
@@ -312,7 +350,11 @@ def test_iv(segment="epm", ocr="gpt4", ner="gpt4", attribute="epm"):
     print("average time: ", total_time / len(test_data))
     metric(pred_masks, gold_masks)
     print(acc, pre, gold)
-    print("precision: {:.2f}, recall {:.2f} f1: {:.2f}".format(acc / pre, acc / gold, 2 * acc / (pre + gold)))
+    print(
+        "precision: {:.2f}, recall {:.2f} f1: {:.2f}".format(
+            acc / pre, acc / gold, 2 * acc / (pre + gold)
+        )
+    )
 
 
 test_iv(segment="epm", ocr="gpt4", ner="gpt4", attribute="epm")

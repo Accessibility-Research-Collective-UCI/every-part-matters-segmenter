@@ -25,9 +25,13 @@ from typing import Dict, List, Optional, Sequence
 import torch
 import transformers
 from llava import conversation as conversation_lib
-from llava.constants import (DEFAULT_IM_END_TOKEN, DEFAULT_IM_START_TOKEN,
-                             DEFAULT_IMAGE_TOKEN, IGNORE_INDEX,
-                             IMAGE_TOKEN_INDEX)
+from llava.constants import (
+    DEFAULT_IM_END_TOKEN,
+    DEFAULT_IM_START_TOKEN,
+    DEFAULT_IMAGE_TOKEN,
+    IGNORE_INDEX,
+    IMAGE_TOKEN_INDEX,
+)
 from llava.mm_utils import tokenizer_image_token
 from llava.model import *
 from llava.train.llava_trainer import LLaVATrainer
@@ -962,9 +966,9 @@ def train():
         model.config.image_aspect_ratio = data_args.image_aspect_ratio
         model.config.image_grid_pinpoints = data_args.image_grid_pinpoints
 
-        model.config.tune_mm_mlp_adapter = (
-            training_args.tune_mm_mlp_adapter
-        ) = model_args.tune_mm_mlp_adapter
+        model.config.tune_mm_mlp_adapter = training_args.tune_mm_mlp_adapter = (
+            model_args.tune_mm_mlp_adapter
+        )
         if model_args.tune_mm_mlp_adapter:
             model.requires_grad_(False)
             for p in model.get_model().mm_projector.parameters():
@@ -980,9 +984,9 @@ def train():
                 dtype=compute_dtype, device=training_args.device
             )
 
-        model.config.mm_use_im_start_end = (
-            data_args.mm_use_im_start_end
-        ) = model_args.mm_use_im_start_end
+        model.config.mm_use_im_start_end = data_args.mm_use_im_start_end = (
+            model_args.mm_use_im_start_end
+        )
         training_args.use_im_start_end = model_args.mm_use_im_start_end
         model.config.mm_use_im_patch_token = model_args.mm_use_im_patch_token
         model.initialize_vision_tokenizer(model_args, tokenizer=tokenizer)

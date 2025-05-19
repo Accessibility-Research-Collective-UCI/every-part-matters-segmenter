@@ -53,7 +53,9 @@ class VQADataset(torch.utils.data.Dataset):
             self.vqa_image_root = os.path.join(base_image_dir, "scigraphqa/imgs/train")
         elif vqa_data == "scigraphqa_instruct_2k":
             DATA_DIR = os.path.join(base_image_dir, "scigraphqa_sample")
-            self.vqa_image_root = os.path.join(base_image_dir, "scigraphqa_sample/imgs/train")
+            self.vqa_image_root = os.path.join(
+                base_image_dir, "scigraphqa_sample/imgs/train"
+            )
         else:
             raise ValueError("Unknown vqa_data: {}".format(vqa_data))
 
@@ -97,9 +99,7 @@ class VQADataset(torch.utils.data.Dataset):
 
         conv = conversation_lib.default_conversation.copy()
         source = item["conversations"]
-        source = preprocess_multimodal(
-            source
-        )
+        source = preprocess_multimodal(source)
         roles = {"human": conv.roles[0], "gpt": conv.roles[1]}
         conversations = []
         if roles[source[0]["from"]] != conv.roles[0]:

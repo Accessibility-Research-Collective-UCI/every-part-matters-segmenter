@@ -62,7 +62,13 @@ class ATRRVQADataset(torch.utils.data.Dataset):
                 image = cv2.imread(org_data["origin_image"])
                 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                 conversantions = atrr_vqa_templates(org_data)
-                _, neg_ = get_nagative_mask(os.path.join(DATA_DIR, file), self.vocab_path, image, self.neg_sample_rate, self.neg_sample_method)
+                _, neg_ = get_nagative_mask(
+                    os.path.join(DATA_DIR, file),
+                    self.vocab_path,
+                    image,
+                    self.neg_sample_rate,
+                    self.neg_sample_method,
+                )
                 neg_conversations = []
                 for neg in neg_:
                     neg_conversations += atrr_vqa_templates_neg(neg)
@@ -73,26 +79,28 @@ class ATRRVQADataset(torch.utils.data.Dataset):
                     conversantion.append(conv[0])
                     conversantion.append(conv[1])
                     conversantion[0]["value"] = "<image>\n" + conversantion[0]["value"]
-                    self.vqa_data += [{
-                        "id": org_data["origin_image"],
-                        "image": org_data["origin_image"],
-                        "conversations": conversantion
-                    }
+                    self.vqa_data += [
+                        {
+                            "id": org_data["origin_image"],
+                            "image": org_data["origin_image"],
+                            "conversations": conversantion,
+                        }
                     ]
                 for conv in neg_conversations:
                     conversantion = []
                     conversantion.append(conv[0])
                     conversantion.append(conv[1])
                     conversantion[0]["value"] = "<image>\n" + conversantion[0]["value"]
-                    self.vqa_data += [{
-                        "id": org_data["origin_image"],
-                        "image": org_data["origin_image"],
-                        "conversations": conversantion
-                    }
+                    self.vqa_data += [
+                        {
+                            "id": org_data["origin_image"],
+                            "image": org_data["origin_image"],
+                            "conversations": conversantion,
+                        }
                     ]
-                
+
         print("vqa_data: ", len(self.vqa_data))
-    
+
     def __len__(self):
         return len(self.vqa_data)
 
@@ -107,7 +115,7 @@ class ATRRVQADataset(torch.utils.data.Dataset):
         padw = self.img_size - w
         x = F.pad(x, (0, padw, 0, padh))
         return x
-    
+
     def __getitem__(self, idx):
         if idx == -1:
             idx = random.randint(0, len(self.vqa_data) - 1)
@@ -128,9 +136,7 @@ class ATRRVQADataset(torch.utils.data.Dataset):
 
         conv = conversation_lib.default_conversation.copy()
         source = item["conversations"]
-        source = preprocess_multimodal(
-            source
-        )
+        source = preprocess_multimodal(source)
         roles = {"human": conv.roles[0], "gpt": conv.roles[1]}
         conversations = []
         if roles[source[0]["from"]] != conv.roles[0]:
@@ -161,4 +167,3 @@ class ATRRVQADataset(torch.utils.data.Dataset):
             questions,
             sampled_classes,
         )
-       

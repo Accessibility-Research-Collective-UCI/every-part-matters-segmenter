@@ -5,6 +5,7 @@ from typing import List, Tuple
 
 class SeparatorStyle(Enum):
     """Different separator style."""
+
     LLAMA_2 = auto()
     TWO = auto()
 
@@ -32,7 +33,6 @@ class Conversation:
             init_msg = init_msg[0].replace("<image>", "").strip()
             messages[0] = (init_role, "<image>\n" + init_msg)
 
-        
         if self.sep_style == SeparatorStyle.LLAMA_2:
             wrap_sys = lambda msg: f"<<SYS>>\n{msg}\n<</SYS>>\n\n"
             wrap_inst = lambda msg: f"[INST] {msg} [/INST]"
@@ -201,7 +201,7 @@ class Conversation:
 
 
 conv_llava_llama2 = Conversation(
-    system= "You are a very helpful language and visual assistant. You can understand the visual content in scientific figures within scientific literature, aiding users in correlating descriptions from the scientific literature with the modules in the figures.",
+    system="You are a very helpful language and visual assistant. You can understand the visual content in scientific figures within scientific literature, aiding users in correlating descriptions from the scientific literature with the modules in the figures.",
     roles=("USER", "ASSISTANT"),
     model="llava_llama2",
     messages=(),

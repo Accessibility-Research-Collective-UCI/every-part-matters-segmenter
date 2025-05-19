@@ -1,880 +1,846 @@
 {
-    "/data_share/data/acl_parse/figure/W17-4914-Figure2-1.png": [
-        "Generator",
-        "Classifier",
-        "Feature Extractor",
-        "Optimizer",
-        "Generator"
-    ],
-    "/data_share/data/acl_parse/figure/D12-1084-Figure1-1.png": [
-        "Parser Module",
-        "Sentence Parser Module",
-        "Recognizer Module",
-        "Semantic Model Generator Module",
-        "Sentence Combining Module",
-        "Topic Modeling Module",
-        "Narrative Paragraph Parser Module",
-        "Sentence Paragraph Combining Module with Topic Models",
-        "Semantic Paragraph Generator Module"
-    ],
-    "/data_share/data/acl_parse/figure/W14-5504-Figure1-1.png": [
-        "Morphology Parsing Generator (MPG)",
-        "Parsing and Stemming Generator (PSG)",
-        "Stemming and Parsing Generator for Chinese Language (SPG-Chinese)",
-        "Stemmer (Stemmer1)",
-        "Lexicon Parser (LPG)",
-        "Stemmed Lexicon Parser (SLPG)",
-        "Parsing and Generation Generator (PGG)",
-        "Parsing Matrix Generator (PMG)",
-        "Stemming Generator (Stemmer2)",
-        "Parsing Matrix Generator (PMG)",
-        "Lexicon Parser Generator (LPG)",
-        "Stemmed Lexicon Parser Generator (SLPG)"
-    ],
-    "/data_share/data/acl_parse/figure/J97-4004-Figure1-1.png": [
-        "[a",
-        "b",
-        "c]",
-        "[c",
-        "d",
-        "e]",
-        "[b",
-        "e",
-        "f]"
-    ],
-    "/data_share/data/acl_parse/figure/2020.coling-main.452-Figure2-1.png": [
-        "R-LSTM",
-        "Copy Network",
-        "Evaluator",
-        "Recommendation",
-        "Question Answering",
-        "Recurrent Network"
-    ],
-    "/data_share/data/acl_parse/figure/W01-1813-Figure2-1.png": [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5"
-    ],
-    "/data_share/data/acl_parse/figure/P11-2059-Figure1-1.png": [
-        "Feature Extractor",
-        "User Rule Classifier",
-        "Sentence Encoder",
-        "Thread",
-        "LU Rule Classifier"
-    ],
-    "/data_share/data/acl_parse/figure/2020.lrec-1.875-Figure10-1.png": [
-        "BCJWJ (Business Center Joint Wireless Journal)",
-        "BCAWJ (Business Center Association of Wireless Journal)",
-        "BCCWJ (Business Center Computer Wireless Journal)",
-        "BCCWWJ (Business Center Computer Wireless Journal)",
-        "BCWWJ (Business Center Wireless Journal)",
-        "BCMWJ (Business Center Mobile Wireless Journal)",
-        "BWJWC (Business Wireless Journal Club)",
-        "BWJCJ (Business Wireless Journal Club Japan)",
-        "BWJCC (Business Wireless Journal Club China)"
-    ],
-    "/data_share/data/acl_parse/figure/U09-1007-Figure10-1.png": [
-        "XL",
-        "XF",
-        "XLX",
-        "XLT",
-        "XLTX",
-        "YL",
-        "YF",
-        "YLX",
-        "YLT",
-        "YLTX",
-        "YLXF",
-        "YLTXL"
-    ],
-    "/data_share/data/acl_parse/figure/W17-2409-Figure1-1.png": [
-        "End-pattern (ya)",
-        "Seed (soda)",
-        "Seed (sodya)",
-        "Seed (amu",
-        "stuya",
-        "seed)",
-        "Seed (seed)"
-    ],
-    "/data_share/data/acl_parse/figure/E93-1007-Figure1-1.png": [
-        "Phonological",
-        "Grammar",
-        "Translation",
-        "Lexical",
-        "Phonological Data Rules Intonation",
-        "Speech Synthesis"
-    ],
-    "/data_share/data/acl_parse/figure/E06-1016-Figure2-1.png": [
-        "Axis",
-        "Auxiliary Verb",
-        "Adjective",
-        "Conjunction",
-        "Noun",
-        "Verb",
-        "Adverb",
-        "Adjective Phrase",
-        "Prepositional Phrase",
-        "Clause",
-        "Target",
-        "Word Count Module",
-        "Target Text Module",
-        "Word Cloud Module"
-    ],
-    "/data_share/data/acl_parse/figure/P19-1465-Figure1-1.png": [
-        "Fusion module",
-        "Encoder",
-        "Decoder"
-    ],
-    "/data_share/data/acl_parse/figure/C16-1181-Figure1-1.png": [
-        "Dialogue Act Functions",
-        "Dialogue Act Features"
-    ],
-    "/data_share/data/acl_parse/figure/2021.emnlp-main.177-Figure2-1.png": [
-        "Convolutional Neural Network (CNN)",
-        "Convolution",
-        "Convolutional Layers",
-        "Pooling",
-        "Dropout",
-        "Fully Connected Layers (FC Layers)",
-        "Activation Functions (ActivFns)",
-        "Softmax",
-        "Output Layer (Output Layers)",
-        "Cross-entropy Loss Function (Cross-entropy Loss)",
-        "Sigmoid Activation"
-    ],
-    "/data_share/data/acl_parse/figure/C86-1020-Figure1-1.png": [
-        "DDBS",
-        "DML",
-        "DL",
-        "DXM",
-        "LISP",
-        "LEX",
-        "LXM",
-        "PAR",
-        "RDFS"
-    ],
-    "/data_share/data/acl_parse/figure/2021.naacl-main.218-Figure1-1.png": [
-        "Next Generation Search",
-        "Next Generation Search",
-        "Next Generation Search",
-        "NEXT",
-        "NEXT",
-        "NEXT",
-        "Next Generation Search",
-        "Next Generation Search",
-        "employed",
-        "Next Generation Search",
-        "Next Generation Search",
-        "Next Generation Search",
-        "Next Generation Search",
-        "Next Generation Search",
-        "Next Generation Search",
-        "Next Generation Search",
-        "Next Generation Search",
-        "Nextdernation Search",
-        "Next Generation Search",
-        "Next Generation Search"
-    ],
-    "/data_share/data/acl_parse/figure/2021.bsnlp-1.11-Figure1-1.png": [
-        "Mentions",
-        "List of Entities",
-        "Mentions Conversion",
-        "Mentions Conversion Conversion",
-        "Named Entities",
-        "Mentions Conversion Naming"
-    ],
-    "/data_share/data/acl_parse/figure/2022.bea-1.6-Figure1-1.png": [
-        "Web",
-        "Database",
-        "Application"
-    ],
-    "/data_share/data/acl_parse/figure/D19-1595-Figure1-1.png": [
-        "Image Processing and Segmentation",
-        "Fast Feature Transformation",
-        "Text Encoding"
-    ],
-    "/data_share/data/acl_parse/figure/W13-0904-Figure1-1.png": [
-        "Wiki",
-        "Seed Article Concepts",
-        "Expanded Concepts"
-    ],
-    "/data_share/data/acl_parse/figure/E06-2019-Figure1-1.png": [
-        "Knowledge Base",
-        "Natural Language Processing (NLP)",
-        "Machine Learning (ML)",
-        "Prototyping",
-        "Modeling",
-        "Data Selection",
-        "Preprocessing"
-    ],
-    "/data_share/data/acl_parse/figure/P03-2018-Figure1-1.png": [
-        "DSS",
-        "CSP",
-        "SLP",
-        "HPS",
-        "DPS",
-        "HPSC",
-        "CSPS",
-        "ST",
-        "LS",
-        "PLC",
-        "DSSC"
-    ],
-    "/data_share/data/acl_parse/figure/M92-1034-Figure2-1.png": [
-        "Semantic Role Filler",
-        "Conceptual Pattern",
-        "Template Pattern"
-    ],
-    "/data_share/data/acl_parse/figure/W13-4703-Figure1-1.png": [
-        "Spatial Modelling Transformations (SMT)",
-        "Post-EDP Optical Transformation",
-        "Pre-EDP Optical Transformation",
-        "Shallow Layer Transformation (SLT)"
-    ],
-    "/data_share/data/acl_parse/figure/W16-1622-Figure3-1.png": [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "HAS",
-        "I",
-        "J",
-        "K",
-        "M",
-        "MAT",
-        "N",
-        "O",
-        "P",
-        "Q",
-        "R",
-        "S",
-        "T",
-        "U",
-        "V",
-        "W",
-        "X",
-        "Y"
-    ],
-    "/data_share/data/acl_parse/figure/2020.acl-main.491-Figure2-1.png": [
-        "Labeling",
-        "Labeling and Model Output",
-        "Decision Support"
-    ],
-    "/data_share/data/acl_parse/figure/W18-6541-Figure1-1.png": [
-        "Data Collection Module",
-        "Data Transformation Module",
-        "Data Analysis Module",
-        "Data Visualization Module"
-    ],
-    "/data_share/data/acl_parse/figure/2005.eamt-1.38-Figure1-1.png": [
-        "Hub UI",
-        "Audio Speech Synthesizer",
-        "Speech Recognizer",
-        "Graphic Translator",
-        "Machine Translator",
-        "Speech Synthesizer (SRS)"
-    ],
-    "/data_share/data/acl_parse/figure/J86-4002-Figure13-1.png": [
-        "Solder",
-        "Supper"
-    ],
-    "/data_share/data/acl_parse/figure/W19-1901-Figure1-1.png": [
-        "LTSTM",
-        "ELM",
-        "LSTM\\_LSTM\\_ELM",
-        "LSTM\\_ELM\\_LSTM\\_ELM",
-        "Reasoned LSTM",
-        "Reasoned LSTM\\_LSTM",
-        "Reasoned LSTM\\_ELM",
-        "Reasoned LSTM\\_LSTM\\_ELM",
-        "Reasoned ELM",
-        "Reasoned LSTM\\_LSTM\\_ELM\\_LSTM",
-        "Reasoned LSTM\\_LSTM\\_ELM\\_LSTM\\_ELM",
-        "Reasoned ELM\\_LSTM\\_ELM",
-        "Reasoned LSTM\\_LSTM\\_ELM\\_LSTM\\_ELM\\_LSTM",
-        "Reasoned LSTM\\_LSTM\\_ELM\\_LSTM\\_ELM\\_LSTM\\_ELM"
-    ],
-    "/data_share/data/acl_parse/figure/2020.bucc-1.7-Figure1-1.png": [
-        "Semantic Networks",
-        "Neural Networks"
-    ],
-    "/data_share/data/acl_parse/figure/O06-4003-Figure16-1.png": [
-        "water tank-1",
-        "water tank-2",
-        "water tank-3"
-    ],
-    "/data_share/data/acl_parse/figure/N10-3011-Figure1-1.png": [
-        "Morphonology Engine",
-        "Transfer Engine",
-        "Language Modelling",
-        "Decoder",
-        "Bilingual Lexicon",
-        "Language Transfer Engine",
-        "Decoder",
-        "Bilingual Lexicon"
-    ],
-    "/data_share/data/acl_parse/figure/W16-4211-Figure3-1.png": [
-        "[X",
-        "Y",
-        "A",
-        "B",
-        "C",
-        "D",
-        "E]",
-        "[A",
-        "C]"
-    ],
-    "/data_share/data/acl_parse/figure/2020.coling-main.228-Figure1-1.png": [
-        "QQQ",
-        "OSS",
-        "QS",
-        "LSTM",
-        "SLM"
-    ],
-    "/data_share/data/acl_parse/figure/2022.findings-acl.185-Figure4-1.png": [
-        "[1",
-        "2]",
-        "[3",
-        "4]"
-    ],
-    "/data_share/data/acl_parse/figure/2020.acl-main.307-Figure1-1.png": [
-        "[Conventional method",
-        "shared classifier]",
-        "[Conventional method",
-        "independent classifier"
-    ],
-    "/data_share/data/acl_parse/figure/W17-5037-Figure1-1.png": [
-        "Word Embedding",
-        "Sentence Encoder (BERT)",
-        "Word-level Language Models (LM)",
-        "Character-level Language Models (LM)",
-        "Character Embedding",
-        "Word2Vec"
-    ],
-    "/data_share/data/acl_parse/figure/2021.nlp4convai-1.11-Figure2-1.png": [
-        "User",
-        "SSO Recommender",
-        "SSO Consumer",
-        "SSO Admin",
-        "User Registration",
-        "SSO Integration"
-    ],
-    "/data_share/data/acl_parse/figure/2020.nlpcovid19-acl.6-Figure1-1.png": [
-        "Background",
-        "Introduction",
-        "Methodology",
-        "Discussion",
-        "Results",
-        "Acknowledgments",
-        "References",
-        "Figure Acknowledgement",
-        "Figure",
-        "Supplementary Data A",
-        "Supplementary Data B",
-        "Supplementary Data C",
-        "Supplementary Data D"
-    ],
-    "/data_share/data/acl_parse/figure/S14-2050-Figure1-1.png": [
-        "Nose-Pickers and Uncouth Young Man",
-        "Nose-Pickers",
-        "Young Man",
-        "Uncouth Young Man",
-        "Nose-Pickers",
-        "Old and Young Man"
-    ],
-    "/data_share/data/acl_parse/figure/W06-1008-Figure1-1.png": [
-        "English (ES)",
-        "Japanese (JE)"
-    ],
-    "/data_share/data/acl_parse/figure/W11-3311-Figure4-1.png": [
-        "interface",
-        "class"
-    ],
-    "/data_share/data/acl_parse/figure/2014.iwslt-evaluation.12-Figure3-1.png": [
-        "decoding module",
-        "segmentation module",
-        "DBN module",
-        "LM module"
-    ],
-    "/data_share/data/acl_parse/figure/W16-3512-Figure1-1.png": [
-        "Sensor",
-        "Generator",
-        "Transmitter",
-        "Receiver",
-        "Signal Processing",
-        "User Interface"
-    ],
-    "/data_share/data/acl_parse/figure/L16-1039-Figure1-1.png": [
-        "Input",
-        "Adaptation System",
-        "Feedback System",
-        "Output",
-        "System"
-    ],
-    "/data_share/data/acl_parse/figure/R13-1048-Figure1-1.png": [
-        "Input",
-        "Output",
-        "Internal analysis",
-        "Transformer",
-        "Make initial analysis"
-    ],
-    "/data_share/data/acl_parse/figure/2022.findings-naacl.80-Figure4-1.png": [
-        "python",
-        "Image Name",
-        "Module",
-        "Description"
-    ],
-    "/data_share/data/acl_parse/figure/W19-7810-Figure2-1.png": [
-        "Code-to-English",
-        "English-to-Code",
-        "Code Translator",
-        "English Translator",
-        "Bengali Translator",
-        "Hindi Translator",
-        "French Translator"
-    ],
-    "/data_share/data/acl_parse/figure/2022.iwslt-1.35-Figure1-1.png": [
-        "AI",
-        "Deep Learning",
-        "NN",
-        "Image Recognition",
-        "Computer Vision",
-        "Machine Learning",
-        "Image Processing"
-    ],
-    "/data_share/data/acl_parse/figure/2021.law-1.4-Figure1-1.png": [
-        "Event Registration",
-        "Event Setup",
-        "Event Schedule",
-        "Event Report",
-        "Event Statistics",
-        "Event Summary"
-    ],
-    "/data_share/data/acl_parse/figure/2020.coling-main.166-Figure2-1.png": [
-        "Face detection module",
-        "Person detection module",
-        "Image enhancement module"
-    ],
-    "/data_share/data/acl_parse/figure/L18-1132-Figure1-1.png": [
-        "Natural Language Processing (NLP)",
-        "Data Processing",
-        "Artificial Intelligence (AI)",
-        "Wikipedia"
-    ],
-    "/data_share/data/acl_parse/figure/P10-4011-Figure3-1.png": [
-        "Sports and Stock Quotes",
-        "Sports",
-        "Movie",
-        "Music",
-        "",
-        "Stock Market",
-        "Movie Quotes",
-        "Music",
-        "Sports",
-        "Music",
-        "Movie",
-        "Stock Market",
-        "Sports",
-        "Movie",
-        "Music",
-        "Stock Market"
-    ],
-    "/data_share/data/acl_parse/figure/W18-1505-Figure1-1.png": [
-        "Storyline Generator (S1)",
-        "Player (S2)",
-        "AI Player (S3)",
-        "Story Analysis Engine (S4)",
-        "Structured Controls (S5)",
-        "Story Analytics (S6)",
-        "Storytelling Engine (S7)",
-        "Player Input (S8)",
-        "Storyline Analyzer (S9)",
-        "Game Engine (G1)",
-        "Game AI (G2)"
-    ],
-    "/data_share/data/acl_parse/figure/N04-1008-Figure3-1.png": [
-        "Answer Extraction Module",
-        "Question Extraction Module"
-    ],
-    "/data_share/data/acl_parse/figure/W13-3006-Figure6-1.png": [
-        ""
-    ],
-    "/data_share/data/acl_parse/figure/W19-7816-Figure1-1.png": [
-        "Leffler",
-        "Segmenter",
-        "Forests",
-        "Parse"
-    ],
-    "/data_share/data/acl_parse/figure/W15-3118-Figure3-1.png": [
-        "Web server",
-        "Crawler",
-        "Resource Controller",
-        "Processor"
-    ],
-    "/data_share/data/acl_parse/figure/W19-5358-Figure1-1.png": [
-        "QA",
-        "QA1",
-        "QA2",
-        "QA3",
-        "QA4",
-        "NLP",
-        "NLP1",
-        "NLP2",
-        "NLP3",
-        "NLP4",
-        "NLP5",
-        "NLP6",
-        "NLP7",
-        "NLP8",
-        "YY",
-        "YY1",
-        "YY2",
-        "YY3",
-        "YY4",
-        "YY5"
-    ],
-    "/data_share/data/acl_parse/figure/W04-2312-Figure1-1.png": [
-        "g-modelit (modeling)",
-        "gntmodl éditor (editing and visualization)",
-        "Gntmodl 123 (editing)",
-        "g-delivery (delivery)",
-        "Gntmodl-123"
-    ],
-    "/data_share/data/acl_parse/figure/L16-1114-Figure1-1.png": [
-        "Restricted decoder",
-        "Acoustic model",
-        "Restricted encoder",
-        "Acoustic feature extractor",
-        "Decoder",
-        "Restricted training",
-        "Restricted training",
-        "Restricted training",
-        "Restricted training",
-        "Restricted training",
-        "Restricted training",
-        "Restricted training",
-        "Restricted training",
-        "Restricted training",
-        "Restricted training",
-        "Restricted training",
-        "Restricted training",
-        "Restricted training",
-        "Restricted training"
-    ],
-    "/data_share/data/acl_parse/figure/O06-2002-Figure2-1.png": [
-        "Decoder-Encoder",
-        "Pronunciation Model",
-        "Language Model (LM)",
-        "Decoder-Decoder",
-        "Recognition Model",
-        "Recognized Word",
-        "Recognized Sentence",
-        "Recognized Paragraph",
-        "Recognized Document",
-        "Decoder-Recognizer",
-        "Encoder-Recognizer"
-    ],
-    "/data_share/data/acl_parse/figure/W91-0207-Figure1-1.png": [
-        "Figure 1",
-        "Figure 2"
-    ],
-    "/data_share/data/acl_parse/figure/P19-1556-Figure1-1.png": [
-        "Bi-LSTM (bidirectional long short-term memory) model",
-        "Aggregated Gradient Reverse LSTM",
-        "Bidirectional LSTM with a Gradient LSTM layer (Bi-LSTM-G)",
-        "Bi-LSTM with a Gradient LSTM layer (Bi-LSTM-GG)"
-    ],
-    "/data_share/data/acl_parse/figure/P19-1108-Figure2-1.png": [
-        "True Positive Module (TPM)",
-        "False Positive Module (FPM)",
-        "Personal Health Monitor Mention Detection (PHMMD)",
-        "False Negative Module (FNM)",
-        "Fake Personal Health Monitor Mention Detection Module (FNM-FP)",
-        "Figurative Usage Detection Module (FUDM)",
-        "Fake True Positive Module (FTPM)",
-        "False Negative Module for Personal Health Monitor Mentions (FNM-PN)",
-        "True Positive Module for Figurative Usages (TPM-F)",
-        "False Positive Module for Figurative Usages (FPM-F)"
-    ],
-    "/data_share/data/acl_parse/figure/C98-1109-Figure6-1.png": [
-        "Example-based Parsing (EBP)",
-        "Semantic Parsing (SP)",
-        "Transformer (TR)",
-        "Sentiment Analysis (SA)",
-        "Named Entity Recognition (NER)",
-        "Parser Combination (PC)",
-        "Sentence Embedding (SE)"
-    ],
-    "/data_share/data/acl_parse/figure/J18-2002-Figure3-1.png": [
-        "IsFunction",
-        "IsSagged",
-        "IsSparse",
-        "IsSVMLight",
-        "IsCSV",
-        "IsMatrix",
-        "IsDataFrame",
-        "IsNumpy",
-        "IsSparseMatrix",
-        "IsNumpyMatrix",
-        "IsNumPySparseMatrix",
-        "Is"
-    ],
-    "/data_share/data/acl_parse/figure/W15-2704-Figure1-1.png": [
-        "Phonological Structure",
-        "Semantics",
-        "Prose",
-        "Rhetorical Structure",
-        "Metrical Structure"
-    ],
-    "/data_share/data/acl_parse/figure/D13-1067-Figure3-1.png": [
-        "Collective Factor Graph Model (CFGM)",
-        "Sentence Sentiment Classification (SSheit)",
-        "Sentence Scoring System (SSE)",
-        "Collective Factor Analysis (CFA)",
-        "Summarized Selection (SSection)",
-        "Collective Fact Graph Graph Model (CFGM)"
-    ],
-    "/data_share/data/acl_parse/figure/W00-1319-Figure1-1.png": [
-        "Search Engine",
-        "Text Database",
-        "Search Concepts",
-        "Concept Text",
-        "Query Reformatting",
-        "Query Execution",
-        "Concept Search",
-        "Text Query"
-    ],
-    "/data_share/data/acl_parse/figure/2020.clinicalnlp-1.28-Figure3-1.png": [
-        "B-Directional LSTM (B-LSTM)",
-        "Fully Connected LSTM (FC-LSTM)",
-        "Attention Mechanics (AM)",
-        "Focus Sentence Detector (FSG)",
-        "Writer's Intent Detector (WID)",
-        "Word Embeddings (WE)",
-        "Final LSTM (FL)"
-    ],
-    "/data_share/data/acl_parse/figure/S16-1127-Figure1-1.png": [
-        "Wikipedia",
-        "TF-IDF",
-        "Weighted Sum"
-    ],
-    "/data_share/data/acl_parse/figure/2021.ltedi-1.29-Figure1-1.png": [
-        "Text",
-        "Test",
-        "Poolable Embedding Vector",
-        "Softmax Layer"
-    ],
-    "/data_share/data/acl_parse/figure/E89-1036-Figure1-1.png": [
-        "Input",
-        "Data Transfer",
-        "Analysis",
-        "Extraction",
-        "Forms-based Data Processing (DPS)"
-    ],
-    "/data_share/data/acl_parse/figure/2022.naacl-industry.28-Figure1-1.png": [
-        "text input",
-        "BERT encoder",
-        "BERT entity model"
-    ],
-    "/data_share/data/acl_parse/figure/P19-1584-Figure2-1.png": [
-        "2",
-        "3",
-        "4",
-        "6"
-    ],
-    "/data_share/data/acl_parse/figure/2021.emnlp-main.828-Figure1-1.png": [
-        "Transformer-based Encoder",
-        "Position-aware Permutation Encoder (PACE)",
-        "Transformer Head and Attention",
-        "Transformer Feature Extractor",
-        "Position-aware Transformer Feature Extractor (PAF)",
-        "Key Encoder",
-        "Position-aware Key Encoder (PAK)",
-        "Position-aware Transformer Encoder (PAE) or Position-aware Permutation Encoder (PPE)",
-        "Transformer Head and Attention for Key Encoder (TKAE)",
-        "Position-aware Transformer Head and Attention for Key Encoder (PTAK)"
-    ],
-    "/data_share/data/acl_parse/figure/I08-2141-Figure1-1.png": [
-        "Language Encoding API",
-        "Unicode",
-        "Coding",
-        "Cryptographic Library",
-        "Crypto API",
-        "Font Encoding",
-        "Car Unlocking API"
-    ],
-    "/data_share/data/acl_parse/figure/C98-2161-Figure1-1.png": [
-        "Present tense sentence solver (PSSS)",
-        "Past tense sentence solver (PSSP)",
-        "Present perfect tense sentence solver (PPSP)",
-        "Past perfect tense sentence solver (PPSP)"
-    ],
-    "/data_share/data/acl_parse/figure/2021.naacl-main.350-Figure2-1.png": [
-        "LSTM",
-        "PYCRP",
-        "CTRP",
-        "Tokenizer (Token RNN)",
-        "LSTM (2x2)",
-        "PYCRP (2x2)",
-        "CTRP (2x2)",
-        "Tokenizer (3x3)",
-        "LSTM (5x5)"
-    ],
-    "/data_share/data/acl_parse/figure/2021.emnlp-main.754-Figure1-1.png": [
-        "Question Model",
-        "Synthetic Data Generation Model",
-        "Question Answering Modele",
-        "Data Generation and Synthesis Model"
-    ],
-    "/data_share/data/acl_parse/figure/C18-2016-Figure2-1.png": [
-        "Left Input Unit",
-        "Center Input Unit",
-        "Right Input Unit",
-        "Merge Unit",
-        "Classifier Unit",
-        "Tree LSTM Unit"
-    ],
-    "/data_share/data/acl_parse/figure/2020.wmt-1.127-Figure2-1.png": [
-        "Model",
-        "Encoder",
-        "Decoder",
-        "Embedding",
-        "Transformer",
-        "Translation Layer",
-        "Decoder Loss",
-        "Optimizer",
-        "Training Data"
-    ],
-    "/data_share/data/acl_parse/figure/2020.semeval-1.74-Figure3-1.png": [
-        "Generator Module",
-        "Connector Module",
-        "Transformer Module (Multi-tasking)",
-        "Transformer Module (Multi-handling)",
-        "Generator Module (Multi-tasking",
-        "Generator Module (Multi-handling)",
-        "Transformer Module (Multi-tasking)",
-        "Connector Module",
-        "Generator Module",
-        "Generator Module"
-    ],
-    "/data_share/data/acl_parse/figure/P10-4003-Figure2-1.png": [
-        "Knowledge Base",
-        "Content Interpreter and Generator",
-        "Dialogue Manager",
-        "Curriculum Planner",
-        "Tutoring System",
-        "User Interface"
-    ],
-    "/data_share/data/acl_parse/figure/W15-2815-Figure1-1.png": [
-        "Text",
-        "Image",
-        "Dictionary",
-        "Database",
-        "Lookup Engine",
-        "Animation",
-        "Glossary Engine",
-        "Translator"
-    ],
-    "/data_share/data/acl_parse/figure/D18-1125-Figure2-1.png": [
-        "Image Encoder",
-        "Image Convolutional Network",
-        "Image Transformer",
-        "Sentence Encoder",
-        "Attention Mechanism",
-        "Language Models",
-        "Decoder",
-        "Generative Adversarial Network",
-        "Generative Adversarial Network for Sentence Retrieval",
-        "Sentence-Level Attention Mechanism"
-    ],
-    "/data_share/data/acl_parse/figure/M92-1032-Figure1-1.png": [
-        "Lexical Analysis",
-        "Semantic Modeling and Knowledge Representation",
-        "Mapping Relations",
-        "Linguistic Transformation",
-        "Text Generation",
-        "Lexical Glossary",
-        "Linguistic Analysis",
-        "Lexical Semantics",
-        "Linguistic Transformation",
-        "Lexical Glossary",
-        "Lexical Semantics",
-        "Text Generation"
-    ],
-    "/data_share/data/acl_parse/figure/W99-0506-Figure1-1.png": [
-        "Web server",
-        "LAN server",
-        "HTML editor",
-        "database server",
-        "LAN client",
-        "E-mail client"
-    ],
-    "/data_share/data/acl_parse/figure/C94-1079-Figure1-1.png": [
-        ""
-    ],
-    "/data_share/data/acl_parse/figure/W17-2343-Figure1-1.png": [
-        "Input module",
-        "Output module",
-        "ProcessingMultipleData module",
-        "DataAnalysis module"
-    ],
-    "/data_share/data/acl_parse/figure/C00-1054-Figure1-1.png": [
-        "Multimodal Parser Understanding Engine",
-        "Gesture Recognizer",
-        "User Interface",
-        "Backend"
-    ],
-    "/data_share/data/acl_parse/figure/N13-1098-Figure5-1.png": [
-        "Weighted average of the words (WOE)",
-        "Weighted average of the unique words (WOU)",
-        "WeightedClasses (WEC)",
-        "WeightedWord2vec (WWV)",
-        "WeightedWord2vec2 (WWV2)"
-    ],
-    "/data_share/data/acl_parse/figure/W10-0703-Figure3-1.png": [
-        "1"
-    ],
-    "/data_share/data/acl_parse/figure/C18-1075-Figure1-1.png": [
-        "Data Generation",
-        "Training Data Generation Phase",
-        "Event Detection",
-        "Model Training",
-        "Event Detection Phase",
-        "Model Evaluation",
-        "Data Dissemination"
-    ],
-    "/data_share/data/acl_parse/figure/W07-1110-Figure2-1.png": [
-        "Pattern Template Extractor",
-        "Compound Extractor",
-        "PMI Data Preprocessing",
-        "ME Data Extractor"
-    ],
-    "/data_share/data/acl_parse/figure/S19-2054-Figure2-1.png": [
-        "BILSTM",
-        "LSTM",
-        "ConvNets",
-        "Elmo",
-        "EmojiNet",
-        "Word Embeddings",
-        "Text Classification",
-        "Image Clssification"
-    ],
-    "/data_share/data/acl_parse/figure/2020.nlptea-1.16-Figure1-1.png": [
-        "Pros Tagging",
-        "Entity Resolution",
-        "Entity Tagging",
-        "Sentiment Resolution",
-        "Anchor Sentiment",
-        "An characteristic Resolution",
-        "NER Tagging",
-        "Entity Annotation",
-        "Sentiment Annotation",
-        "NER Annotation"
-    ]
+  "/data_share/data/acl_parse/figure/W17-4914-Figure2-1.png": [
+    "Generator",
+    "Classifier",
+    "Feature Extractor",
+    "Optimizer",
+    "Generator"
+  ],
+  "/data_share/data/acl_parse/figure/D12-1084-Figure1-1.png": [
+    "Parser Module",
+    "Sentence Parser Module",
+    "Recognizer Module",
+    "Semantic Model Generator Module",
+    "Sentence Combining Module",
+    "Topic Modeling Module",
+    "Narrative Paragraph Parser Module",
+    "Sentence Paragraph Combining Module with Topic Models",
+    "Semantic Paragraph Generator Module"
+  ],
+  "/data_share/data/acl_parse/figure/W14-5504-Figure1-1.png": [
+    "Morphology Parsing Generator (MPG)",
+    "Parsing and Stemming Generator (PSG)",
+    "Stemming and Parsing Generator for Chinese Language (SPG-Chinese)",
+    "Stemmer (Stemmer1)",
+    "Lexicon Parser (LPG)",
+    "Stemmed Lexicon Parser (SLPG)",
+    "Parsing and Generation Generator (PGG)",
+    "Parsing Matrix Generator (PMG)",
+    "Stemming Generator (Stemmer2)",
+    "Parsing Matrix Generator (PMG)",
+    "Lexicon Parser Generator (LPG)",
+    "Stemmed Lexicon Parser Generator (SLPG)"
+  ],
+  "/data_share/data/acl_parse/figure/J97-4004-Figure1-1.png": [
+    "[a",
+    "b",
+    "c]",
+    "[c",
+    "d",
+    "e]",
+    "[b",
+    "e",
+    "f]"
+  ],
+  "/data_share/data/acl_parse/figure/2020.coling-main.452-Figure2-1.png": [
+    "R-LSTM",
+    "Copy Network",
+    "Evaluator",
+    "Recommendation",
+    "Question Answering",
+    "Recurrent Network"
+  ],
+  "/data_share/data/acl_parse/figure/W01-1813-Figure2-1.png": ["1", "2", "3", "4", "5"],
+  "/data_share/data/acl_parse/figure/P11-2059-Figure1-1.png": [
+    "Feature Extractor",
+    "User Rule Classifier",
+    "Sentence Encoder",
+    "Thread",
+    "LU Rule Classifier"
+  ],
+  "/data_share/data/acl_parse/figure/2020.lrec-1.875-Figure10-1.png": [
+    "BCJWJ (Business Center Joint Wireless Journal)",
+    "BCAWJ (Business Center Association of Wireless Journal)",
+    "BCCWJ (Business Center Computer Wireless Journal)",
+    "BCCWWJ (Business Center Computer Wireless Journal)",
+    "BCWWJ (Business Center Wireless Journal)",
+    "BCMWJ (Business Center Mobile Wireless Journal)",
+    "BWJWC (Business Wireless Journal Club)",
+    "BWJCJ (Business Wireless Journal Club Japan)",
+    "BWJCC (Business Wireless Journal Club China)"
+  ],
+  "/data_share/data/acl_parse/figure/U09-1007-Figure10-1.png": [
+    "XL",
+    "XF",
+    "XLX",
+    "XLT",
+    "XLTX",
+    "YL",
+    "YF",
+    "YLX",
+    "YLT",
+    "YLTX",
+    "YLXF",
+    "YLTXL"
+  ],
+  "/data_share/data/acl_parse/figure/W17-2409-Figure1-1.png": [
+    "End-pattern (ya)",
+    "Seed (soda)",
+    "Seed (sodya)",
+    "Seed (amu",
+    "stuya",
+    "seed)",
+    "Seed (seed)"
+  ],
+  "/data_share/data/acl_parse/figure/E93-1007-Figure1-1.png": [
+    "Phonological",
+    "Grammar",
+    "Translation",
+    "Lexical",
+    "Phonological Data Rules Intonation",
+    "Speech Synthesis"
+  ],
+  "/data_share/data/acl_parse/figure/E06-1016-Figure2-1.png": [
+    "Axis",
+    "Auxiliary Verb",
+    "Adjective",
+    "Conjunction",
+    "Noun",
+    "Verb",
+    "Adverb",
+    "Adjective Phrase",
+    "Prepositional Phrase",
+    "Clause",
+    "Target",
+    "Word Count Module",
+    "Target Text Module",
+    "Word Cloud Module"
+  ],
+  "/data_share/data/acl_parse/figure/P19-1465-Figure1-1.png": [
+    "Fusion module",
+    "Encoder",
+    "Decoder"
+  ],
+  "/data_share/data/acl_parse/figure/C16-1181-Figure1-1.png": [
+    "Dialogue Act Functions",
+    "Dialogue Act Features"
+  ],
+  "/data_share/data/acl_parse/figure/2021.emnlp-main.177-Figure2-1.png": [
+    "Convolutional Neural Network (CNN)",
+    "Convolution",
+    "Convolutional Layers",
+    "Pooling",
+    "Dropout",
+    "Fully Connected Layers (FC Layers)",
+    "Activation Functions (ActivFns)",
+    "Softmax",
+    "Output Layer (Output Layers)",
+    "Cross-entropy Loss Function (Cross-entropy Loss)",
+    "Sigmoid Activation"
+  ],
+  "/data_share/data/acl_parse/figure/C86-1020-Figure1-1.png": [
+    "DDBS",
+    "DML",
+    "DL",
+    "DXM",
+    "LISP",
+    "LEX",
+    "LXM",
+    "PAR",
+    "RDFS"
+  ],
+  "/data_share/data/acl_parse/figure/2021.naacl-main.218-Figure1-1.png": [
+    "Next Generation Search",
+    "Next Generation Search",
+    "Next Generation Search",
+    "NEXT",
+    "NEXT",
+    "NEXT",
+    "Next Generation Search",
+    "Next Generation Search",
+    "employed",
+    "Next Generation Search",
+    "Next Generation Search",
+    "Next Generation Search",
+    "Next Generation Search",
+    "Next Generation Search",
+    "Next Generation Search",
+    "Next Generation Search",
+    "Next Generation Search",
+    "Nextdernation Search",
+    "Next Generation Search",
+    "Next Generation Search"
+  ],
+  "/data_share/data/acl_parse/figure/2021.bsnlp-1.11-Figure1-1.png": [
+    "Mentions",
+    "List of Entities",
+    "Mentions Conversion",
+    "Mentions Conversion Conversion",
+    "Named Entities",
+    "Mentions Conversion Naming"
+  ],
+  "/data_share/data/acl_parse/figure/2022.bea-1.6-Figure1-1.png": [
+    "Web",
+    "Database",
+    "Application"
+  ],
+  "/data_share/data/acl_parse/figure/D19-1595-Figure1-1.png": [
+    "Image Processing and Segmentation",
+    "Fast Feature Transformation",
+    "Text Encoding"
+  ],
+  "/data_share/data/acl_parse/figure/W13-0904-Figure1-1.png": [
+    "Wiki",
+    "Seed Article Concepts",
+    "Expanded Concepts"
+  ],
+  "/data_share/data/acl_parse/figure/E06-2019-Figure1-1.png": [
+    "Knowledge Base",
+    "Natural Language Processing (NLP)",
+    "Machine Learning (ML)",
+    "Prototyping",
+    "Modeling",
+    "Data Selection",
+    "Preprocessing"
+  ],
+  "/data_share/data/acl_parse/figure/P03-2018-Figure1-1.png": [
+    "DSS",
+    "CSP",
+    "SLP",
+    "HPS",
+    "DPS",
+    "HPSC",
+    "CSPS",
+    "ST",
+    "LS",
+    "PLC",
+    "DSSC"
+  ],
+  "/data_share/data/acl_parse/figure/M92-1034-Figure2-1.png": [
+    "Semantic Role Filler",
+    "Conceptual Pattern",
+    "Template Pattern"
+  ],
+  "/data_share/data/acl_parse/figure/W13-4703-Figure1-1.png": [
+    "Spatial Modelling Transformations (SMT)",
+    "Post-EDP Optical Transformation",
+    "Pre-EDP Optical Transformation",
+    "Shallow Layer Transformation (SLT)"
+  ],
+  "/data_share/data/acl_parse/figure/W16-1622-Figure3-1.png": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "HAS",
+    "I",
+    "J",
+    "K",
+    "M",
+    "MAT",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "V",
+    "W",
+    "X",
+    "Y"
+  ],
+  "/data_share/data/acl_parse/figure/2020.acl-main.491-Figure2-1.png": [
+    "Labeling",
+    "Labeling and Model Output",
+    "Decision Support"
+  ],
+  "/data_share/data/acl_parse/figure/W18-6541-Figure1-1.png": [
+    "Data Collection Module",
+    "Data Transformation Module",
+    "Data Analysis Module",
+    "Data Visualization Module"
+  ],
+  "/data_share/data/acl_parse/figure/2005.eamt-1.38-Figure1-1.png": [
+    "Hub UI",
+    "Audio Speech Synthesizer",
+    "Speech Recognizer",
+    "Graphic Translator",
+    "Machine Translator",
+    "Speech Synthesizer (SRS)"
+  ],
+  "/data_share/data/acl_parse/figure/J86-4002-Figure13-1.png": ["Solder", "Supper"],
+  "/data_share/data/acl_parse/figure/W19-1901-Figure1-1.png": [
+    "LTSTM",
+    "ELM",
+    "LSTM\\_LSTM\\_ELM",
+    "LSTM\\_ELM\\_LSTM\\_ELM",
+    "Reasoned LSTM",
+    "Reasoned LSTM\\_LSTM",
+    "Reasoned LSTM\\_ELM",
+    "Reasoned LSTM\\_LSTM\\_ELM",
+    "Reasoned ELM",
+    "Reasoned LSTM\\_LSTM\\_ELM\\_LSTM",
+    "Reasoned LSTM\\_LSTM\\_ELM\\_LSTM\\_ELM",
+    "Reasoned ELM\\_LSTM\\_ELM",
+    "Reasoned LSTM\\_LSTM\\_ELM\\_LSTM\\_ELM\\_LSTM",
+    "Reasoned LSTM\\_LSTM\\_ELM\\_LSTM\\_ELM\\_LSTM\\_ELM"
+  ],
+  "/data_share/data/acl_parse/figure/2020.bucc-1.7-Figure1-1.png": [
+    "Semantic Networks",
+    "Neural Networks"
+  ],
+  "/data_share/data/acl_parse/figure/O06-4003-Figure16-1.png": [
+    "water tank-1",
+    "water tank-2",
+    "water tank-3"
+  ],
+  "/data_share/data/acl_parse/figure/N10-3011-Figure1-1.png": [
+    "Morphonology Engine",
+    "Transfer Engine",
+    "Language Modelling",
+    "Decoder",
+    "Bilingual Lexicon",
+    "Language Transfer Engine",
+    "Decoder",
+    "Bilingual Lexicon"
+  ],
+  "/data_share/data/acl_parse/figure/W16-4211-Figure3-1.png": [
+    "[X",
+    "Y",
+    "A",
+    "B",
+    "C",
+    "D",
+    "E]",
+    "[A",
+    "C]"
+  ],
+  "/data_share/data/acl_parse/figure/2020.coling-main.228-Figure1-1.png": [
+    "QQQ",
+    "OSS",
+    "QS",
+    "LSTM",
+    "SLM"
+  ],
+  "/data_share/data/acl_parse/figure/2022.findings-acl.185-Figure4-1.png": ["[1", "2]", "[3", "4]"],
+  "/data_share/data/acl_parse/figure/2020.acl-main.307-Figure1-1.png": [
+    "[Conventional method",
+    "shared classifier]",
+    "[Conventional method",
+    "independent classifier"
+  ],
+  "/data_share/data/acl_parse/figure/W17-5037-Figure1-1.png": [
+    "Word Embedding",
+    "Sentence Encoder (BERT)",
+    "Word-level Language Models (LM)",
+    "Character-level Language Models (LM)",
+    "Character Embedding",
+    "Word2Vec"
+  ],
+  "/data_share/data/acl_parse/figure/2021.nlp4convai-1.11-Figure2-1.png": [
+    "User",
+    "SSO Recommender",
+    "SSO Consumer",
+    "SSO Admin",
+    "User Registration",
+    "SSO Integration"
+  ],
+  "/data_share/data/acl_parse/figure/2020.nlpcovid19-acl.6-Figure1-1.png": [
+    "Background",
+    "Introduction",
+    "Methodology",
+    "Discussion",
+    "Results",
+    "Acknowledgments",
+    "References",
+    "Figure Acknowledgement",
+    "Figure",
+    "Supplementary Data A",
+    "Supplementary Data B",
+    "Supplementary Data C",
+    "Supplementary Data D"
+  ],
+  "/data_share/data/acl_parse/figure/S14-2050-Figure1-1.png": [
+    "Nose-Pickers and Uncouth Young Man",
+    "Nose-Pickers",
+    "Young Man",
+    "Uncouth Young Man",
+    "Nose-Pickers",
+    "Old and Young Man"
+  ],
+  "/data_share/data/acl_parse/figure/W06-1008-Figure1-1.png": ["English (ES)", "Japanese (JE)"],
+  "/data_share/data/acl_parse/figure/W11-3311-Figure4-1.png": ["interface", "class"],
+  "/data_share/data/acl_parse/figure/2014.iwslt-evaluation.12-Figure3-1.png": [
+    "decoding module",
+    "segmentation module",
+    "DBN module",
+    "LM module"
+  ],
+  "/data_share/data/acl_parse/figure/W16-3512-Figure1-1.png": [
+    "Sensor",
+    "Generator",
+    "Transmitter",
+    "Receiver",
+    "Signal Processing",
+    "User Interface"
+  ],
+  "/data_share/data/acl_parse/figure/L16-1039-Figure1-1.png": [
+    "Input",
+    "Adaptation System",
+    "Feedback System",
+    "Output",
+    "System"
+  ],
+  "/data_share/data/acl_parse/figure/R13-1048-Figure1-1.png": [
+    "Input",
+    "Output",
+    "Internal analysis",
+    "Transformer",
+    "Make initial analysis"
+  ],
+  "/data_share/data/acl_parse/figure/2022.findings-naacl.80-Figure4-1.png": [
+    "python",
+    "Image Name",
+    "Module",
+    "Description"
+  ],
+  "/data_share/data/acl_parse/figure/W19-7810-Figure2-1.png": [
+    "Code-to-English",
+    "English-to-Code",
+    "Code Translator",
+    "English Translator",
+    "Bengali Translator",
+    "Hindi Translator",
+    "French Translator"
+  ],
+  "/data_share/data/acl_parse/figure/2022.iwslt-1.35-Figure1-1.png": [
+    "AI",
+    "Deep Learning",
+    "NN",
+    "Image Recognition",
+    "Computer Vision",
+    "Machine Learning",
+    "Image Processing"
+  ],
+  "/data_share/data/acl_parse/figure/2021.law-1.4-Figure1-1.png": [
+    "Event Registration",
+    "Event Setup",
+    "Event Schedule",
+    "Event Report",
+    "Event Statistics",
+    "Event Summary"
+  ],
+  "/data_share/data/acl_parse/figure/2020.coling-main.166-Figure2-1.png": [
+    "Face detection module",
+    "Person detection module",
+    "Image enhancement module"
+  ],
+  "/data_share/data/acl_parse/figure/L18-1132-Figure1-1.png": [
+    "Natural Language Processing (NLP)",
+    "Data Processing",
+    "Artificial Intelligence (AI)",
+    "Wikipedia"
+  ],
+  "/data_share/data/acl_parse/figure/P10-4011-Figure3-1.png": [
+    "Sports and Stock Quotes",
+    "Sports",
+    "Movie",
+    "Music",
+    "",
+    "Stock Market",
+    "Movie Quotes",
+    "Music",
+    "Sports",
+    "Music",
+    "Movie",
+    "Stock Market",
+    "Sports",
+    "Movie",
+    "Music",
+    "Stock Market"
+  ],
+  "/data_share/data/acl_parse/figure/W18-1505-Figure1-1.png": [
+    "Storyline Generator (S1)",
+    "Player (S2)",
+    "AI Player (S3)",
+    "Story Analysis Engine (S4)",
+    "Structured Controls (S5)",
+    "Story Analytics (S6)",
+    "Storytelling Engine (S7)",
+    "Player Input (S8)",
+    "Storyline Analyzer (S9)",
+    "Game Engine (G1)",
+    "Game AI (G2)"
+  ],
+  "/data_share/data/acl_parse/figure/N04-1008-Figure3-1.png": [
+    "Answer Extraction Module",
+    "Question Extraction Module"
+  ],
+  "/data_share/data/acl_parse/figure/W13-3006-Figure6-1.png": [""],
+  "/data_share/data/acl_parse/figure/W19-7816-Figure1-1.png": [
+    "Leffler",
+    "Segmenter",
+    "Forests",
+    "Parse"
+  ],
+  "/data_share/data/acl_parse/figure/W15-3118-Figure3-1.png": [
+    "Web server",
+    "Crawler",
+    "Resource Controller",
+    "Processor"
+  ],
+  "/data_share/data/acl_parse/figure/W19-5358-Figure1-1.png": [
+    "QA",
+    "QA1",
+    "QA2",
+    "QA3",
+    "QA4",
+    "NLP",
+    "NLP1",
+    "NLP2",
+    "NLP3",
+    "NLP4",
+    "NLP5",
+    "NLP6",
+    "NLP7",
+    "NLP8",
+    "YY",
+    "YY1",
+    "YY2",
+    "YY3",
+    "YY4",
+    "YY5"
+  ],
+  "/data_share/data/acl_parse/figure/W04-2312-Figure1-1.png": [
+    "g-modelit (modeling)",
+    "gntmodl éditor (editing and visualization)",
+    "Gntmodl 123 (editing)",
+    "g-delivery (delivery)",
+    "Gntmodl-123"
+  ],
+  "/data_share/data/acl_parse/figure/L16-1114-Figure1-1.png": [
+    "Restricted decoder",
+    "Acoustic model",
+    "Restricted encoder",
+    "Acoustic feature extractor",
+    "Decoder",
+    "Restricted training",
+    "Restricted training",
+    "Restricted training",
+    "Restricted training",
+    "Restricted training",
+    "Restricted training",
+    "Restricted training",
+    "Restricted training",
+    "Restricted training",
+    "Restricted training",
+    "Restricted training",
+    "Restricted training",
+    "Restricted training",
+    "Restricted training"
+  ],
+  "/data_share/data/acl_parse/figure/O06-2002-Figure2-1.png": [
+    "Decoder-Encoder",
+    "Pronunciation Model",
+    "Language Model (LM)",
+    "Decoder-Decoder",
+    "Recognition Model",
+    "Recognized Word",
+    "Recognized Sentence",
+    "Recognized Paragraph",
+    "Recognized Document",
+    "Decoder-Recognizer",
+    "Encoder-Recognizer"
+  ],
+  "/data_share/data/acl_parse/figure/W91-0207-Figure1-1.png": ["Figure 1", "Figure 2"],
+  "/data_share/data/acl_parse/figure/P19-1556-Figure1-1.png": [
+    "Bi-LSTM (bidirectional long short-term memory) model",
+    "Aggregated Gradient Reverse LSTM",
+    "Bidirectional LSTM with a Gradient LSTM layer (Bi-LSTM-G)",
+    "Bi-LSTM with a Gradient LSTM layer (Bi-LSTM-GG)"
+  ],
+  "/data_share/data/acl_parse/figure/P19-1108-Figure2-1.png": [
+    "True Positive Module (TPM)",
+    "False Positive Module (FPM)",
+    "Personal Health Monitor Mention Detection (PHMMD)",
+    "False Negative Module (FNM)",
+    "Fake Personal Health Monitor Mention Detection Module (FNM-FP)",
+    "Figurative Usage Detection Module (FUDM)",
+    "Fake True Positive Module (FTPM)",
+    "False Negative Module for Personal Health Monitor Mentions (FNM-PN)",
+    "True Positive Module for Figurative Usages (TPM-F)",
+    "False Positive Module for Figurative Usages (FPM-F)"
+  ],
+  "/data_share/data/acl_parse/figure/C98-1109-Figure6-1.png": [
+    "Example-based Parsing (EBP)",
+    "Semantic Parsing (SP)",
+    "Transformer (TR)",
+    "Sentiment Analysis (SA)",
+    "Named Entity Recognition (NER)",
+    "Parser Combination (PC)",
+    "Sentence Embedding (SE)"
+  ],
+  "/data_share/data/acl_parse/figure/J18-2002-Figure3-1.png": [
+    "IsFunction",
+    "IsSagged",
+    "IsSparse",
+    "IsSVMLight",
+    "IsCSV",
+    "IsMatrix",
+    "IsDataFrame",
+    "IsNumpy",
+    "IsSparseMatrix",
+    "IsNumpyMatrix",
+    "IsNumPySparseMatrix",
+    "Is"
+  ],
+  "/data_share/data/acl_parse/figure/W15-2704-Figure1-1.png": [
+    "Phonological Structure",
+    "Semantics",
+    "Prose",
+    "Rhetorical Structure",
+    "Metrical Structure"
+  ],
+  "/data_share/data/acl_parse/figure/D13-1067-Figure3-1.png": [
+    "Collective Factor Graph Model (CFGM)",
+    "Sentence Sentiment Classification (SSheit)",
+    "Sentence Scoring System (SSE)",
+    "Collective Factor Analysis (CFA)",
+    "Summarized Selection (SSection)",
+    "Collective Fact Graph Graph Model (CFGM)"
+  ],
+  "/data_share/data/acl_parse/figure/W00-1319-Figure1-1.png": [
+    "Search Engine",
+    "Text Database",
+    "Search Concepts",
+    "Concept Text",
+    "Query Reformatting",
+    "Query Execution",
+    "Concept Search",
+    "Text Query"
+  ],
+  "/data_share/data/acl_parse/figure/2020.clinicalnlp-1.28-Figure3-1.png": [
+    "B-Directional LSTM (B-LSTM)",
+    "Fully Connected LSTM (FC-LSTM)",
+    "Attention Mechanics (AM)",
+    "Focus Sentence Detector (FSG)",
+    "Writer's Intent Detector (WID)",
+    "Word Embeddings (WE)",
+    "Final LSTM (FL)"
+  ],
+  "/data_share/data/acl_parse/figure/S16-1127-Figure1-1.png": [
+    "Wikipedia",
+    "TF-IDF",
+    "Weighted Sum"
+  ],
+  "/data_share/data/acl_parse/figure/2021.ltedi-1.29-Figure1-1.png": [
+    "Text",
+    "Test",
+    "Poolable Embedding Vector",
+    "Softmax Layer"
+  ],
+  "/data_share/data/acl_parse/figure/E89-1036-Figure1-1.png": [
+    "Input",
+    "Data Transfer",
+    "Analysis",
+    "Extraction",
+    "Forms-based Data Processing (DPS)"
+  ],
+  "/data_share/data/acl_parse/figure/2022.naacl-industry.28-Figure1-1.png": [
+    "text input",
+    "BERT encoder",
+    "BERT entity model"
+  ],
+  "/data_share/data/acl_parse/figure/P19-1584-Figure2-1.png": ["2", "3", "4", "6"],
+  "/data_share/data/acl_parse/figure/2021.emnlp-main.828-Figure1-1.png": [
+    "Transformer-based Encoder",
+    "Position-aware Permutation Encoder (PACE)",
+    "Transformer Head and Attention",
+    "Transformer Feature Extractor",
+    "Position-aware Transformer Feature Extractor (PAF)",
+    "Key Encoder",
+    "Position-aware Key Encoder (PAK)",
+    "Position-aware Transformer Encoder (PAE) or Position-aware Permutation Encoder (PPE)",
+    "Transformer Head and Attention for Key Encoder (TKAE)",
+    "Position-aware Transformer Head and Attention for Key Encoder (PTAK)"
+  ],
+  "/data_share/data/acl_parse/figure/I08-2141-Figure1-1.png": [
+    "Language Encoding API",
+    "Unicode",
+    "Coding",
+    "Cryptographic Library",
+    "Crypto API",
+    "Font Encoding",
+    "Car Unlocking API"
+  ],
+  "/data_share/data/acl_parse/figure/C98-2161-Figure1-1.png": [
+    "Present tense sentence solver (PSSS)",
+    "Past tense sentence solver (PSSP)",
+    "Present perfect tense sentence solver (PPSP)",
+    "Past perfect tense sentence solver (PPSP)"
+  ],
+  "/data_share/data/acl_parse/figure/2021.naacl-main.350-Figure2-1.png": [
+    "LSTM",
+    "PYCRP",
+    "CTRP",
+    "Tokenizer (Token RNN)",
+    "LSTM (2x2)",
+    "PYCRP (2x2)",
+    "CTRP (2x2)",
+    "Tokenizer (3x3)",
+    "LSTM (5x5)"
+  ],
+  "/data_share/data/acl_parse/figure/2021.emnlp-main.754-Figure1-1.png": [
+    "Question Model",
+    "Synthetic Data Generation Model",
+    "Question Answering Modele",
+    "Data Generation and Synthesis Model"
+  ],
+  "/data_share/data/acl_parse/figure/C18-2016-Figure2-1.png": [
+    "Left Input Unit",
+    "Center Input Unit",
+    "Right Input Unit",
+    "Merge Unit",
+    "Classifier Unit",
+    "Tree LSTM Unit"
+  ],
+  "/data_share/data/acl_parse/figure/2020.wmt-1.127-Figure2-1.png": [
+    "Model",
+    "Encoder",
+    "Decoder",
+    "Embedding",
+    "Transformer",
+    "Translation Layer",
+    "Decoder Loss",
+    "Optimizer",
+    "Training Data"
+  ],
+  "/data_share/data/acl_parse/figure/2020.semeval-1.74-Figure3-1.png": [
+    "Generator Module",
+    "Connector Module",
+    "Transformer Module (Multi-tasking)",
+    "Transformer Module (Multi-handling)",
+    "Generator Module (Multi-tasking",
+    "Generator Module (Multi-handling)",
+    "Transformer Module (Multi-tasking)",
+    "Connector Module",
+    "Generator Module",
+    "Generator Module"
+  ],
+  "/data_share/data/acl_parse/figure/P10-4003-Figure2-1.png": [
+    "Knowledge Base",
+    "Content Interpreter and Generator",
+    "Dialogue Manager",
+    "Curriculum Planner",
+    "Tutoring System",
+    "User Interface"
+  ],
+  "/data_share/data/acl_parse/figure/W15-2815-Figure1-1.png": [
+    "Text",
+    "Image",
+    "Dictionary",
+    "Database",
+    "Lookup Engine",
+    "Animation",
+    "Glossary Engine",
+    "Translator"
+  ],
+  "/data_share/data/acl_parse/figure/D18-1125-Figure2-1.png": [
+    "Image Encoder",
+    "Image Convolutional Network",
+    "Image Transformer",
+    "Sentence Encoder",
+    "Attention Mechanism",
+    "Language Models",
+    "Decoder",
+    "Generative Adversarial Network",
+    "Generative Adversarial Network for Sentence Retrieval",
+    "Sentence-Level Attention Mechanism"
+  ],
+  "/data_share/data/acl_parse/figure/M92-1032-Figure1-1.png": [
+    "Lexical Analysis",
+    "Semantic Modeling and Knowledge Representation",
+    "Mapping Relations",
+    "Linguistic Transformation",
+    "Text Generation",
+    "Lexical Glossary",
+    "Linguistic Analysis",
+    "Lexical Semantics",
+    "Linguistic Transformation",
+    "Lexical Glossary",
+    "Lexical Semantics",
+    "Text Generation"
+  ],
+  "/data_share/data/acl_parse/figure/W99-0506-Figure1-1.png": [
+    "Web server",
+    "LAN server",
+    "HTML editor",
+    "database server",
+    "LAN client",
+    "E-mail client"
+  ],
+  "/data_share/data/acl_parse/figure/C94-1079-Figure1-1.png": [""],
+  "/data_share/data/acl_parse/figure/W17-2343-Figure1-1.png": [
+    "Input module",
+    "Output module",
+    "ProcessingMultipleData module",
+    "DataAnalysis module"
+  ],
+  "/data_share/data/acl_parse/figure/C00-1054-Figure1-1.png": [
+    "Multimodal Parser Understanding Engine",
+    "Gesture Recognizer",
+    "User Interface",
+    "Backend"
+  ],
+  "/data_share/data/acl_parse/figure/N13-1098-Figure5-1.png": [
+    "Weighted average of the words (WOE)",
+    "Weighted average of the unique words (WOU)",
+    "WeightedClasses (WEC)",
+    "WeightedWord2vec (WWV)",
+    "WeightedWord2vec2 (WWV2)"
+  ],
+  "/data_share/data/acl_parse/figure/W10-0703-Figure3-1.png": ["1"],
+  "/data_share/data/acl_parse/figure/C18-1075-Figure1-1.png": [
+    "Data Generation",
+    "Training Data Generation Phase",
+    "Event Detection",
+    "Model Training",
+    "Event Detection Phase",
+    "Model Evaluation",
+    "Data Dissemination"
+  ],
+  "/data_share/data/acl_parse/figure/W07-1110-Figure2-1.png": [
+    "Pattern Template Extractor",
+    "Compound Extractor",
+    "PMI Data Preprocessing",
+    "ME Data Extractor"
+  ],
+  "/data_share/data/acl_parse/figure/S19-2054-Figure2-1.png": [
+    "BILSTM",
+    "LSTM",
+    "ConvNets",
+    "Elmo",
+    "EmojiNet",
+    "Word Embeddings",
+    "Text Classification",
+    "Image Clssification"
+  ],
+  "/data_share/data/acl_parse/figure/2020.nlptea-1.16-Figure1-1.png": [
+    "Pros Tagging",
+    "Entity Resolution",
+    "Entity Tagging",
+    "Sentiment Resolution",
+    "Anchor Sentiment",
+    "An characteristic Resolution",
+    "NER Tagging",
+    "Entity Annotation",
+    "Sentiment Annotation",
+    "NER Annotation"
+  ]
 }

@@ -1,5 +1,5 @@
-
 import argparse
+
 
 def parse_args(args):
     parser = argparse.ArgumentParser(description="Every Part Matters")
@@ -7,9 +7,7 @@ def parse_args(args):
     # /data_share/model_hub/llava/llava-v1.5-13b
     # /data_share/model_hub/llava/llava-v1.6-vicuna-13b
     # /data_share/model_hub/llava/llava-v1.5-7b
-    parser.add_argument(
-        "--base_model", default=""
-    )
+    parser.add_argument("--base_model", default="")
     parser.add_argument("--pretrain_mm_mlp_adapter", default="", type=str)
     parser.add_argument("--vis_save_path", default="./vis_output", type=str)
     parser.add_argument(
@@ -23,23 +21,19 @@ def parse_args(args):
     parser.add_argument("--model_max_length", default=1024, type=int)
     parser.add_argument("--lora_r", default=8, type=int)
     # dir path of the pretrained model for vision tower clip-vit-large-patch14
-    parser.add_argument(
-        "--vision-tower", default="", type=str
-    )
+    parser.add_argument("--vision-tower", default="", type=str)
     parser.add_argument("--load_in_8bit", action="store_true", default=False)
     parser.add_argument("--load_in_4bit", action="store_true", default=False)
-    
+
     # "figure_seg||atrr_vqa||everything_vqa||mask_vqa"
-    parser.add_argument(
-        "--dataset", default="figure_seg", type=str
-    )
-    # 8,2 
+    parser.add_argument("--dataset", default="figure_seg", type=str)
+    # 8,2
     parser.add_argument("--sample_rates", default="8", tytrainpe=str)
     parser.add_argument("--vqa_data", default="scigraphqa_instruct_2k", type=str)
     parser.add_argument("--val_dataset", default="val", type=str)
     parser.add_argument("--figure_seg_data", default="train", type=str)
     parser.add_argument("--test_dataset", default="test", type=str)
-    
+
     # module_vocab.json
     parser.add_argument("--vocab_path", default="", type=str)
     parser.add_argument("--neg_sample_rate", default=1, type=int)
@@ -84,6 +78,8 @@ def parse_args(args):
     parser.add_argument("--train_mask_decoder", action="store_true", default=True)
     parser.add_argument("--use_mm_start_end", action="store_true", default=True)
     parser.add_argument("--auto_resume", action="store_true", default=True)
-    parser.add_argument("--conv_type", default="llava_v1.5", type=str, choices=["llava_v1.5"])
+    parser.add_argument(
+        "--conv_type", default="llava_v1.5", type=str, choices=["llava_v1.5"]
+    )
     parser.add_argument("--local_rank", default=0, type=int)
     return parser.parse_args(args)
