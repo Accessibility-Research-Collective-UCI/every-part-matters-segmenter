@@ -21,9 +21,10 @@ from util.utils import (
     IMAGE_TOKEN_INDEX,
     question_templates,
 )
-from model.llava.train.llama_flash_attn_monkey_patch import (
-    replace_llama_attn_with_flash_attn,
-)
+
+# from model.llava.train.llama_flash_attn_monkey_patch import (
+#     replace_llama_attn_with_flash_attn,
+# )
 
 
 def parse_args(args):
@@ -112,7 +113,7 @@ num_added_tokens = tokenizer.add_tokens("[MODULE]")
 args.seg_token_idx = tokenizer("[MODULE]", add_special_tokens=False).input_ids[0]
 
 if args.conv_type == "llava_v1.5":
-    replace_llama_attn_with_flash_attn()
+    # replace_llama_attn_with_flash_attn()
     args.use_mm_start_end = False
 
 if args.use_mm_start_end:

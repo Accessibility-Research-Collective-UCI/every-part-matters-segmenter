@@ -10,8 +10,9 @@ from model.segment_anything.utils.transforms import ResizeLongestSide
 from .figure_seg_dataset import FigureSegDataset
 from .vqa_dataset import VQADataset
 from .atrr_vqa_dataset import ATRRVQADataset
-from .everything_vqa_dataset import EVERYTHINGVQADataset
-from .mask_vqa_dataset import MASKVQADataset
+
+# from .everything_vqa_dataset import EVERYTHINGVQADataset
+# from .mask_vqa_dataset import MASKVQADataset
 from .utils import (
     DEFAULT_IMAGE_TOKEN,
     ANSWER_LIST,

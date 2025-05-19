@@ -79,7 +79,10 @@ def parse_args(args):
     parser.add_argument("--use_mm_start_end", action="store_true", default=True)
     parser.add_argument("--auto_resume", action="store_true", default=True)
     parser.add_argument(
-        "--conv_type", default="llava_v1.5", type=str, choices=["llava_v1.5"]
+        "--conv_type",
+        default="llava_v1.6",
+        type=str,
+        choices=["llava_v1.5", "llava_v1.6"],
     )
     parser.add_argument("--local_rank", default=0, type=int)
     return parser.parse_args(args)
