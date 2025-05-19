@@ -5,7 +5,6 @@ import sys
 import zipfile
 import cv2
 import numpy as np
-from plot import PlotPrompt
 import torch
 import json
 from tqdm import tqdm
