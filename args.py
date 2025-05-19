@@ -28,7 +28,7 @@ def parse_args(args):
     # "figure_seg||atrr_vqa||everything_vqa||mask_vqa"
     parser.add_argument("--dataset", default="figure_seg", type=str)
     # 8,2
-    parser.add_argument("--sample_rates", default="8", tytrainpe=str)
+    parser.add_argument("--sample_rates", default="8", type=str)
     parser.add_argument("--vqa_data", default="scigraphqa_instruct_2k", type=str)
     parser.add_argument("--val_dataset", default="val", type=str)
     parser.add_argument("--figure_seg_data", default="train", type=str)
