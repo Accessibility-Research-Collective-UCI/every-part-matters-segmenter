@@ -50,7 +50,7 @@ class LlavaLlamaForCausalLM(LlamaForCausalLM, LlavaMetaForCausalLM):
 
         self.model = LlavaLlamaModel(config)
         self.tokenizer = AutoTokenizer.from_pretrained(
-            "liuhaotian/llava-v1.6-vicuna-13b"
+            "liuhaotian/llava-v1.6-vicuna-7b"
         )
         self.tokenizer.add_tokens("[MODULE]")
         self.tokenizer.add_tokens(["<im_start>", "<im_end>"], special_tokens=True)
